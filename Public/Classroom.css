@@ -1,0 +1,26 @@
+@media(min-aspect-ratio:16/9){
+    #video1{
+        width: auto;
+        height: auto;
+    }
+}
+@media(max-aspect-ratio:16/9){
+    #video1{
+        width: auto;
+        height: auto;
+    }
+}
+
+#video1{
+    position: absolute;
+    width: 70%;
+    height: 50%;
+}
+
+.videoList{
+    position: relative;
+    left: 75%;
+    padding: 8px;
+    font-size: 20px;
+    font-weight: bolder;
+}
