@@ -9,6 +9,25 @@
 </head>
 <body>
   <div class="row1">there are 3 columns</div>
+ <div class="loginFormContainer_Hidden">
+    <form class="loginForm" action="/Pathname" method="POST"> 
+      <div class="line">
+      <label class="label" for="UserName">User Name:</label>
+      <input class="input" name="UserName" type="text" placeholder="4-12 digits with Alphanumeric" required pattern="[0-9a-zA-Z]{4,12}">
+      <span class="ok">ok</span>
+      </div>
+      <div class="line">
+      <label class="label" for="Password">Password:</label>
+      <input class="input" name="Password" type="text" placeholder="6-16 digits with Alphanumeric" required pattern="[0-9a-zA-Z]{6,16}">
+      <span class="ok">ok</span>
+      </div>
+      <div class="line">
+      <input class="submit" type="submit">
+      </div>
+    </form>
+    </div>
+ 
+
   
   <div class="row2">
     <div class=box1>
