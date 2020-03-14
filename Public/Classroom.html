@@ -8,10 +8,16 @@
   <link href="Classroom.css" rel="stylesheet">
 </head>
 <body>
+  <form action="/videos" enctype="multipart/form-data" method="POST">
+  <textarea name="content"></textarea>
+  <input type="file" name="video">
+  <input type="submit" value="Post">
+  </form>
+
 
   <div class="row1">
   <video autoplay controls id="video1">
-    <source src="" type="video/mp4">
+    <source src="./skype2282.mp4" type="video/mp4">
     Your Browser does not support MP4 videos, please change browser!
   </video>  
   
