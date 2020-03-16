@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Classroom</title>
+  <title>Classroom1</title>
   <link href="https://pagecdn.io/lib/font-awesome/5.12.0-1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" >
-  <link href="Classroom.css" rel="stylesheet">
+  <link href="Classroom1.css" rel="stylesheet">
 </head>
 <body>
-  <form action="/videos" enctype="multipart/form-data" method="POST">
+
+  <form id="addMessageForm" action="/videos" enctype="multipart/form-data" method="POST">
   <textarea name="content"></textarea>
   <input type="file" name="video">
   <input type="submit" value="Post">
@@ -16,29 +17,13 @@
 
 
   <div class="row1">
-  <video autoplay controls id="video1">
-    <source src="./skype2282.mp4" type="video/mp4">
-    Your Browser does not support MP4 videos, please change browser!
+  <video autoplay controls id="videoPlayer" >
+    
   </video>  
-  
-    <ul id="videoList">
-      <li id="./skype2281.mp4" class="listItem">Video 1</li>
-      <li id="./skype2282.mp4" class="listItem">Video 2</li>
-      <li class="listItem">Video 3</li>
-      <li class="listItem">Video 4</li>
-      <li class="listItem">Video 5</li>
-      <li class="listItem">Video 7</li>
-      <li class="listItem">Video 8</li>
-      <li class="listItem">Video 9</li>
-      <li class="listItem">Video 10</li>
-      <li class="listItem">Video 11</li>
-      <li class="listItem">Video 12</li>
-      <li class="listItem">Video 13</li>
-      <li class="listItem">Video 13</li>
-      <li class="listItem">Video 13</li>
-      <li class="listItem">Video 13</li>
-      <li class="listItem">Video 13</li>
-    </ul>  
+
+  <ul id="videoList">
+      
+  </ul>  
   </div>
   
   <script src="Video.js"></script>
