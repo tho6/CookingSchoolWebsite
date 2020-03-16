@@ -44,7 +44,7 @@ app.get('/videos', async (req, res) => {
 })
 
 
-app.post('/videos',upload.single('video'), async (req,res)=>{
+app.post('/videos',upload.single('video'), async (req,res)=>{ // (video) must be match to html file <input type="file" name="video">
   try{
     const videos = await jsonfile.readFile('./videos.json'); //from json file get something
     videos.push({
@@ -60,31 +60,8 @@ app.post('/videos',upload.single('video'), async (req,res)=>{
   }
 })
   
-app.get('/play', async (req, res) => {
-  try {
-    const play = await jsonfile.readFile('./play.json'); //from json file get something
-    res.json(play); // respond to index.js file (const memos = await fetchRes.json();) 
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({success: false})
-  }
-})
 
 
-app.post('/play', async (req,res)=>{
-  try{
-    const play = await jsonfile.readFile('./play.json'); //from json file get something
-    play.push({
-      content: req.body.content,
-    })
-    await jsonfile.writeFile('./play.json',play)
-    res.redirect('/Classroom.html')
-  
-  } catch (e){
-    console.log(e)
-    res.status(500).json({success:false})
-  }
-})
 
 
 app.listen(8080, () => {
