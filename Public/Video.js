@@ -1,4 +1,4 @@
-   let myStr = 'Your Browser does not support MP4 videos, please change browser!' 
+   //let myStr = 'Your Browser does not support MP4 videos, please change browser!' 
    let videoHTML = []
    readVideos();
 async function readVideos(){
@@ -15,10 +15,22 @@ async function readVideos(){
       }
       document.querySelector('#videoList').innerHTML += videoHTML; // add something into innerHTML      
     }
+    //const videoPlayerHTML = `<source src="./`
+    const listItems = document.querySelectorAll('#videoList .listItem');
+    for(const listItem of listItems){
+    listItem.addEventListener('click',(event)=>{
+    //document.querySelector('#videoPlayer').innerHtml = `${videoPlayerHTML}${event.target.id}" type="video/mp4">${myStr}`
+    document.querySelector('#videoPlayer').src = `./${event.target.id}`
+})}
+
 }
     document.querySelector('#addMessageForm').addEventListener('submit', async (event) => {
       const form = event.currentTarget // currentTarget only available on Form tag
       event.preventDefault()
+      //if(document.querySelector('#addMessageForm textarea').value == ""){ // adopt innerHtml or Value depends on typing textBox or not 
+
+      //}
+      //if(document.querySelector('#addMessageForm textarea')
       const formData = new FormData(form)
       await fetch('/videos',{
         method: 'POST',
@@ -26,18 +38,3 @@ async function readVideos(){
       })
       readVideos()
   })
-
-readPlay();
-async function readPlay(){
-  const fetchRes2 = await fetch('/play')
-  const play = await fetchRes2.json()
-//document.querySelector('#videoPlayer').innerHTML = ''; // html file class memos , empty is required, to avoid duplicated memo     
-const videoPlayerHTML = `<source src="./`
-const listItems = document.querySelectorAll('#videoList .listItem');
-for(const listItem of listItems){
-listItem.addEventListener('click',(event)=>{
-  document.querySelector('#videoPlayer').innerHTML = `${videoPlayerHTML}${event.target.id}" type="video/mp4">${myStr}`
-  //readPlay()
-})}
-
-}  
