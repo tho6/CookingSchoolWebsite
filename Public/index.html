@@ -9,7 +9,7 @@
 </head>
 <body>
   <div class="row1">there are 3 columns</div>
- <div class="loginFormContainer_Hidden">
+  <div class="loginFormContainer_Hidden">
     <form class="loginForm" action="/Pathname" method="POST"> 
       <div class="line">
       <label class="label" for="UserName">User Name:</label>
@@ -26,9 +26,7 @@
       </div>
     </form>
     </div>
- 
-
-  
+      
   <div class="row2">
     <div class=box1>
       <div class="sloganContainer1">
@@ -42,7 +40,7 @@
     </div>
   </div>
 
-    <div class="row3">
+  <div class="row3">
     <div class="iconContainer">
     <img  id="alex" src="icon1.png">
     <img  id="jason" src="icon2.png">
@@ -54,12 +52,22 @@
   </div>
 
 <div class="row4">
-  <div class="cardContainer">there are 6 card
-    
+  <div class="cardContainer">
+
+    <ul id="courseList">
+      
+    </ul>
+  
   </div>
 </div>
+  
+<form id="addMessageForm" action="/courses" enctype="multipart/form-data" method="POST">
+  <textarea name="Classroom"></textarea>
+  <input type="file" name="image">
+  <input type="submit" value="Post">
+</form>
 
-
-  <script src="index.js"></script>
+  <script src="Login.js"></script>
+  <script src="Course.js"></script>
 </body>
 </html>
