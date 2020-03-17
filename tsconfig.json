@@ -19,6 +19,8 @@
         "node_modules",
         "build",
         "scripts",
-        "index.js"
+        "*.js",
+        "frontend",
+        "public"
     ]
 }
