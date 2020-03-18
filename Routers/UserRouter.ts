@@ -15,7 +15,15 @@ export class UserRouter {
     router.post("/", this.createUser);
     router.post("/login", this.login);
     router.get("/logout", this.logout);
+    router.get("/abc", this.checkSession);
     return router;
+  }
+  
+  checkSession = (req: Request, res: Response) => {
+    if (req.session){
+      console.log(req.session.username);
+    }
+    res.end();
   }
 
   createUser = async (req: Request, res: Response) => {
@@ -26,6 +34,7 @@ export class UserRouter {
         res.status(400).json({ message: "Duplicate" });
         return;
       }
+      
       const userId = await this.userService.createUser(username, password);
       res.json({ user_id: userId });
     } catch (err) {
@@ -48,6 +57,9 @@ export class UserRouter {
         req.session.user = {
           id: user.id
         };
+      }
+      if (req.session){
+        req.session.username = "abcde";
       }
       return res.redirect("/");
     } else {
