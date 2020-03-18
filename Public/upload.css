@@ -5,7 +5,7 @@ body {
     justify-content: center;
     margin: 0
 }
-
+/* 
 
 @import "bootstrap/functions";
 
@@ -14,4 +14,4 @@ $custom-file-text: (
   zh-TW: "xxxxx"
 );
 
-@import "bootstrap";
+@import "bootstrap"; */
