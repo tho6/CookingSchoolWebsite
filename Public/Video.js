@@ -8,10 +8,10 @@ async function readVideos(){
     
     for (let i = 0; i < videos.length; i++) {
       videoHTML = `<li class="listItem"><button>`;
-      videoHTML = videoHTML + videos[i].content + '<button class="trash" data-id="${i}"><i class="fas fa-trash"></i></button></li>';
+      videoHTML = videoHTML + videos[i].Dish + '<button class="trash" data-id="${i}"><i class="fas fa-trash"></i></button></li>';
       if (videos[i].Video != null) {
       videoHTML = `<li id="${videos[i].Video}" class="listItem">`
-      videoHTML = videoHTML + videos[i].content + '<button class="trash" data-id="${i}"><i class="fas fa-trash"></i></button></li>';
+      videoHTML = videoHTML + videos[i].Dish + '<button class="trash" data-id="${i}"><i class="fas fa-trash"></i></button></li>';
       }
       document.querySelector('#videoList').innerHTML += videoHTML; // add something into innerHTML      
     }
