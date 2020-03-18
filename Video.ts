@@ -15,7 +15,7 @@ import jsonfile from 'jsonfile'
     cb(null, path.join(__dirname, 'uploads'));
   },
   filename: function (req, file, cb) {
-    cb(null, `${req.body.category}_${req.body.dish}_${Date.now()}.${file.mimetype.split('/')[1]}`);
+    cb(null, `${req.body.category}_${req.body.dish}_${Date.now()}.${file.mimetype.split('/')[1]}`); // catecary and dish refer to html form name tag
   }
   })
 
@@ -46,13 +46,14 @@ app.get('/videos', async (req, res) => {
 
 app.post('/videos',upload.single('video'), async (req,res)=>{ // (video) must be match to html file <input type="file" name="video">
   try{
-    if (req.body.content == null || req.body.content == ''){
+    if (req.body.category == null || req.body.category == ''){
       res.status(400).json({success:false,message:"please type something on text box"})
       return
   }
     const videos = await jsonfile.readFile('./videos.json'); //from json file get something
     videos.push({
-      content: req.body.content,
+      Category: req.body.category,
+      Dish:req.body.dish,
       Video: req.file == null ? null : req.file.filename // "Video" is Video.json file (key Name)
     })
     await jsonfile.writeFile('./videos.json',videos)
