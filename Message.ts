@@ -42,7 +42,7 @@
 import express from 'express'
 // import url from 'url'
 import bodyParser from 'body-parser'
-import {CommentRouter} from "./Routers/CommentRouter"
+import {CommentRouter} from "./routers/CommentRouter"
 import {CommentService} from "./Services/CommentService"
 const app = express();
 
@@ -53,7 +53,7 @@ const commentRouter = new CommentRouter(commentService);
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 
-app.use(`${API_VERSION}/comment`, commentRouter.router());
+// app.use(`${API_VERSION}/comment`, commentRouter.router());
 app.use(express.static('public'))
 
 app.listen(8080, () => console.log("listening to port 8080"));
