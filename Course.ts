@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
   const upload = multer({storage: storage})
   // multer standard syntax
   
-//  let SumOfLike:number = 0
+  let SumOfLike:number = 0
   const app = express()
   
   // 增強 express 的功能
@@ -73,21 +73,33 @@ app.delete('/courses/:id', async(req,res)=>{
         
 })
 
-// app.post('/likes', async(req,res)=>{
-//     try{
-//         const likes = await jsonfile.readFile('./likes.json')
-//         SumOfLike = SumOfLike + 1
-//         likes.push({
-//             likeKey: req.body.SumOfLike
-//         })
-//         await jsonfile.writeFile('./likes.json',likes)
-//         res.redirect('/')
 
-//     }catch (e){
-//         console.error(e)
-//         res.status(500).json({success:false})
-//     }    
-// })
+app.get('/likes', async(req,res)=>{
+    try{
+        const likes = await jsonfile.readFile('./likes.json')
+        res.json(likes)
+    }catch (e){
+        console.error(e)
+        res.status(500).json({success:false})
+    }    
+})
+
+
+app.post('/likes', async(req,res)=>{
+    try{
+        const likes = await jsonfile.readFile('./likes.json')
+        SumOfLike = SumOfLike + 1
+        likes.push({
+            likeKey: req.body.SumOfLike
+        })
+        await jsonfile.writeFile('./likes.json',likes)
+        res.redirect('/')
+
+    }catch (e){
+        console.error(e)
+        res.status(500).json({success:false})
+    }    
+ })
 
 app.listen(8080, () => {
     console.log('Listening on port 8080')

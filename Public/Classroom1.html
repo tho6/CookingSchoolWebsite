@@ -10,7 +10,13 @@
 <body>
 
   <form id="addMessageForm" action="/videos" enctype="multipart/form-data" method="POST">
-  <textarea name="content"></textarea>
+  <textarea name="topic">Topic</textarea>
+  <select id="category" name="category">
+    <option value="chineseStyle">chineseStyle</option>
+    <option value="westernStyle">westernStyle</option>
+  </select>
+  <textarea name="dish">Dish</textarea>
+  <textarea name="material">material</textarea>
   <input type="file" name="video" accept="video/*">
   <input type="submit" value="Post">
   </form>
