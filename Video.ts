@@ -15,7 +15,7 @@ import jsonfile from 'jsonfile'
     cb(null, path.join(__dirname, 'uploads'));
   },
   filename: function (req, file, cb) {
-    cb(null, `${file.fieldname}-${Date.now()}.${file.mimetype.split('/')[1]}`);
+    cb(null, `${req.params.category}_${req.params.dish}.${file.mimetype.split('/')[1]}`);
   }
   })
 
@@ -44,7 +44,7 @@ app.get('/videos', async (req, res) => {
 })
 
 
-app.post('/videos',upload.single('video'), async (req,res)=>{ // (video) must be match to html file <input type="file" name="video">
+app.post('/:category/:dish/videos',upload.single('video'), async (req,res)=>{ // (video) must be match to html file <input type="file" name="video">
   try{
     const videos = await jsonfile.readFile('./videos.json'); //from json file get something
     videos.push({

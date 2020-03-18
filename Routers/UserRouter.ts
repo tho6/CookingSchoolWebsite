@@ -18,12 +18,12 @@ export class UserRouter {
     router.get("/abc", this.checkSession);
     return router;
   }
-  
+
   checkSession = (req: Request, res: Response) => {
-    if (req.session){
-      console.log(req.session.username);
+    if (req.session) {
+      console.log(req.session);
     }
-    res.end();
+    res.send("nono");
   }
 
   createUser = async (req: Request, res: Response) => {
@@ -34,7 +34,7 @@ export class UserRouter {
         res.status(400).json({ message: "Duplicate" });
         return;
       }
-      
+
       const userId = await this.userService.createUser(username, password);
       res.json({ user_id: userId });
     } catch (err) {
@@ -53,12 +53,12 @@ export class UserRouter {
     const match = await checkPassword(password, user.password);
     if (match) {
       console.log("step 2");
+      // if (req.session) {
+      // req.session.user = {
+      //   id: user.id
+      // };
+      // }
       if (req.session) {
-        req.session.user = {
-          id: user.id
-        };
-      }
-      if (req.session){
         req.session.username = "abcde";
       }
       return res.redirect("/");
@@ -90,7 +90,8 @@ export class UserRouter {
     const result = await fetchRes.json();
     const users = await this.userService.getUsers();
     const user = users.find(user => user.username == result.email);
-    let tmpUserId: number;
+    // @ts-ignore
+    let tmpUserId: number
     // if (!user) {
     //   return res.status(401).redirect("/login.html?error=Incorrect+Username");
     // }
@@ -101,18 +102,21 @@ export class UserRouter {
     //   console.log("search user")
     //   return res.redirect("/");
     // }
-      if (!user) {
-        console.log("first time")
-        tmpUserId = await this.userService.createUser(result.email, "password");
-      } else {
-        console.log("second time")
-        tmpUserId = user.id;
-      }
-      if (req.session) {
-        req.session.user = {
-          id: tmpUserId
-        };
-        return res.redirect("/");
-      }
+    if (!user) {
+      console.log("first time")
+      tmpUserId = await this.userService.createUser(result.email, "password");
+    } else {
+      console.log("second time")
+      tmpUserId = user.id;
+    }
+    if (req.session) {
+      // req.session.user = {
+      //   id: tmpUserId
+      // };
+      
+        req.session.username = "abcde";
+      
+      return res.redirect("/");
+    }
   };
 }

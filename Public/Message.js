@@ -6,7 +6,6 @@ const category = currentPath[0];
 const dish = currentPath[1];
 console.log(category, dish);
 
-
 async function readComment(id=null) {
 
     const fetchRes = await fetch(`/api/v1/comment/${category}/${dish}`);
@@ -59,8 +58,8 @@ async function readComment(id=null) {
 
         for (let j = 0; j < comment.replies.length; j++) {
             commentHTML +=
-                `<div class="col-xl-6 hide" data-use="hiding" data-id=${i}></div>
-                <div class = "col-xl-6 replies-section hide" data-use="hiding" data-id=${i}>`
+                `<div class="col-xl-6 hide" data-use="hiding" data-id=${i} data-open="false"></div>
+                <div class = "col-xl-6 replies-section hide" data-use="hiding" data-id=${i} data-open="false">`
             for (let k = 0; k < comment.replies[j].referring.length; k++) {
                 let totalIndentation = comment.replies[j].referring.length * 10 - k * 10;
                 commentHTML +=
@@ -386,13 +385,11 @@ function showBtns() {
     }
 }
 
-function showExisting(id=null){
-    if (id){
+function showExisting(id){
+    
         const all = document.querySelectorAll(`[data-use="hiding"][data-id='${id}']`);
         for (const one of all){
             one.classList.remove('hide');
-        }
-
     }
 }
 
