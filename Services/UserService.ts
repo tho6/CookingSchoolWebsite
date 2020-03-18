@@ -1,4 +1,4 @@
-import jsonfile from "jsonfile";
+import jsonfile from "./node_modules/jsonfile";
 import path from "path";
 import { UserDataset } from "../models/user";
 import { hashPassword } from "../hash";
