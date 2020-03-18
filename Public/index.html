@@ -8,18 +8,11 @@
   <link href="index.css" rel="stylesheet">
 </head>
 <body>
+  <a href="/Classroom1.html">下昌</a>
   <div class="row1">there are 3 columns</div>
-  <div class="topnav">
-      <div class="login-container">Loginxxx
-        <form action="./login.html">
-          <input type="text" placeholder="Username" name="username">
-          <input type="text" placeholder="Password" name="psw">
-          <button type="submit">Login</button>
-        </form>
-      </div>
-    </div>
-    <!-- <form class="loginForm" action="/Pathname" method="POST">  -->
-      <!-- <div class="line">
+  <div class="loginFormContainer_Hidden">
+    <form class="loginForm" action="/Pathname" method="POST"> 
+      <div class="line">
       <label class="label" for="UserName">User Name:</label>
       <input class="input" name="UserName" type="text" placeholder="4-12 digits with Alphanumeric" required pattern="[0-9a-zA-Z]{4,12}">
       <span class="ok">ok</span>
@@ -32,7 +25,7 @@
       <div class="line">
       <input class="submit" type="submit">
       </div>
-    </form> -->
+    </form>
     </div>
       
   <div class="row2">
@@ -59,6 +52,8 @@
     </div>
   </div>
 
+  
+
 <div class="row4">
   <div class="cardContainer">
 
@@ -69,13 +64,16 @@
   </div>
 </div>
   
+
+
+
 <form id="addMessageForm" action="/courses" enctype="multipart/form-data" method="POST">
   <textarea name="Classroom"></textarea>
-  <input type="file" name="image">
+  <input type="file" name="image" accept="image/*"> 
   <input type="submit" value="Post">
 </form>
 
-  <script src="login.js"></script>
+  <script src="Login.js"></script>
   <script src="Course.js"></script>
 </body>
 </html>

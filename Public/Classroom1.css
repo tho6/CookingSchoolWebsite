@@ -1,3 +1,56 @@
+<<<<<<< HEAD
+@media(min-aspect-ratio:16/9){
+    #videoPlayer{
+        width: auto;
+        height: auto;
+    }
+}
+@media(max-aspect-ratio:16/9){
+    #videoPlayer{
+        width: auto;
+        height: auto;
+    }
+}
+
+.row1{
+    width: 100%;
+    height: 300px;
+    background-color: black;
+    position: relative;
+}
+
+#videoPlayer{
+    position: absolute;
+    width: 70%;
+    height: 300px;
+}
+
+#videoList{
+    width: 21%;
+    height: 270px;
+    position: absolute;
+    top: 2px;
+    left: 70%;
+    font-size: 20px;
+    font-weight: bolder;
+    border-radius: 5px;
+    border: solid 5px black;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-color: lightgray;
+}
+.trash{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: none;
+    background-color: chartreuse;
+    margin: 5px;
+}
+=======
 @media(min-aspect-ratio:16/9){
     #video1{
         width: auto;
@@ -39,3 +92,4 @@
     background-color: lightgray;
 }
 
+>>>>>>> 0459701e51e07146a7525fbe4c9006f4c1b6a7d5
