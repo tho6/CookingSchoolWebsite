@@ -1,11 +1,11 @@
 @media(min-aspect-ratio:16/9){
-    #video1{
+    #videoPlayer{
         width: auto;
         height: auto;
     }
 }
 @media(max-aspect-ratio:16/9){
-    #video1{
+    #videoPlayer{
         width: auto;
         height: auto;
     }
@@ -18,7 +18,7 @@
     position: relative;
 }
 
-#video1{
+#videoPlayer{
     position: absolute;
     width: 70%;
     height: 300px;
@@ -38,4 +38,14 @@
     overflow-y: scroll;
     background-color: lightgray;
 }
-
+.trash{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: none;
+    background-color: chartreuse;
+    margin: 5px;
+}

@@ -8,6 +8,7 @@
   <link href="index.css" rel="stylesheet">
 </head>
 <body>
+  <!--<a href="/Classroom1.html">下昌</a>-->
   <div class="row1">there are 3 columns</div>
   <div class="loginFormContainer_Hidden">
     <form class="loginForm" action="/Pathname" method="POST"> 
@@ -51,24 +52,28 @@
     </div>
   </div>
 
+  
+
 <div class="row4">
-  <div class="cardContainer">there are 6 card
+  <div class="cardContainer">
 
-    
-    <a action="" method="" href="/Classroom.html">Classroom</a>
-
-
-
-
-
-
-
-
+    <ul id="courseList">
       
+    </ul>
+  
   </div>
 </div>
   
 
+
+
+<form id="addMessageForm" action="/courses" enctype="multipart/form-data" method="POST">
+  <textarea name="Classroom"></textarea>
+  <input type="file" name="image" accept="image/*"> 
+  <input type="submit" value="Post">
+</form>
+
   <script src="Login.js"></script>
+  <script src="Course.js"></script>
 </body>
 </html>

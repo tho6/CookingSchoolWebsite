@@ -44,15 +44,19 @@ app.get('/videos', async (req, res) => {
 })
 
 
-app.post('/videos',upload.single('video'), async (req,res)=>{
+app.post('/videos',upload.single('video'), async (req,res)=>{ // (video) must be match to html file <input type="file" name="video">
   try{
+    if (req.body.content == null || req.body.content == ''){
+      res.status(400).json({success:false,message:"please type something on text box"})
+      return
+  }
     const videos = await jsonfile.readFile('./videos.json'); //from json file get something
     videos.push({
       content: req.body.content,
       Video: req.file == null ? null : req.file.filename // "Video" is Video.json file (key Name)
     })
     await jsonfile.writeFile('./videos.json',videos)
-    res.redirect('/Classroom.html')
+    res.redirect('/Classroom1.html')
   
   } catch (e){
     console.log(e)
@@ -60,6 +64,19 @@ app.post('/videos',upload.single('video'), async (req,res)=>{
   }
 })
   
+
+app.delete('/videos/:id', async(req,res)=>{
+  try{
+      const videos = await jsonfile.readFile('./videos.json')
+      videos.splice(req.params.id ,1)
+      await jsonfile.writeFile('./videos.json',videos)
+      res.json({success:true})
+  }catch(e){
+      res.status(500).json({success:false})
+  }
+      
+})
+
 
 
 app.listen(8080, () => {
