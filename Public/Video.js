@@ -4,7 +4,7 @@
 async function readVideos(){
     const fetchRes = await fetch('/videos')
     const videos = await fetchRes.json()
-    document.querySelector('uploadVideo.html #videoList').innerHTML = ''; // html file class memos , empty is required, to avoid duplicated memo 
+    document.querySelector('#videoList').innerHTML = ''; // html file class memos , empty is required, to avoid duplicated memo 
     
     for (let i = 0; i < videos.length; i++) {
       videoHTML = `<li class="listItem"><button>`;
