@@ -7,7 +7,7 @@ const dish = currentPath[1];
 console.log(category, dish);
 
 
-async function readComment() {
+async function readComment(id=null) {
 
     const fetchRes = await fetch(`/api/v1/comment/${category}/${dish}`);
     const comments = await fetchRes.json();
@@ -325,7 +325,11 @@ async function replyComment() {
 
                     replyArea.value = '';
                 }
-                main();
+                if (replyBtn.dataset.outerid){
+                    main(replyBtn.dataset.outerid);
+                }else{
+                    main(replyBtn.dataset.id);
+                }
             })
             console.log('hi')
 
@@ -382,8 +386,17 @@ function showBtns() {
     }
 }
 
+function showExisting(id=null){
+    if (id){
+        const all = document.querySelectorAll(`[data-use="hiding"][data-id='${id}']`);
+        for (const one of all){
+            one.classList.remove('hide');
+        }
 
-async function main() {
+    }
+}
+
+async function main(id) {
     await readComment();
     editComment();
     postComment();
@@ -391,6 +404,7 @@ async function main() {
     replyComment();
     showMore();
     showBtns();
+    showExisting(id);
 }
 
 main();
