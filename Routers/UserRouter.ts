@@ -77,13 +77,13 @@ export class UserRouter {
   };
 
   getCurrentUser = (req: express.Request, res: express.Response) => {
-    if (req.session){
+    if (req.session?.username){
       console.log(req.session.username)
       console.log("NEW")
       res.send(req.session.username)
       return
     }
-    res.send({'status':false})
+    res.send({'username':false})
   }
   
   loginGoogle = async (req: express.Request, res: express.Response) => {
@@ -124,7 +124,7 @@ export class UserRouter {
       // req.session.user = {
       //   id: tmpUserId
       // };
-      req.session.username = user;
+      req.session.username = {'username':user?.username};
       console.log(req.session.username) // get session user id
 
       // req.session.username = "abcde"; // test

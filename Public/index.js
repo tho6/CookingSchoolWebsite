@@ -1,19 +1,20 @@
 let loggedIn = false;
 
-async function getCurrentUser(){
+async function getCurrentUser() {
     const resFetch = await fetch('/users/getCurrentUser')
     const jsonRes = await resFetch.json();
-
+    console.log('ooooooo')
     console.log(jsonRes)
-    if (jsonRes){
-         loggedIn= true
-         console.log(loggedIn)
-    }else{
-         loggedIn = false
-         console.log(loggedIn)
+    if (jsonRes.username) {
+        loggedIn = true
+        console.log(loggedIn)
+    } else {
+        loggedIn = false
+        console.log(loggedIn)
     }
-    
+
 }
+
 
 // const jsonRes = getCurrentUser();
 
