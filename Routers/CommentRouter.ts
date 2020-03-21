@@ -19,10 +19,11 @@ export class CommentRouter {
         router.put(upload_path, this.createReply);
         return router;
     }
-
+    //ok
     createComment = async (req: Request, res: Response) => {
         try {
-            const username = "Ivan";
+            const username = req.session?.username.username.split('@')[0];
+            console.log(username);
             const userIcon = "Hi.jpg";
             const comment = req.body.content.comment;
             const editTime = new Date().toLocaleString();
@@ -30,7 +31,7 @@ export class CommentRouter {
                 res.status(400).json({ message: 'The comment is empty~😢' });
                 return;
             }
-            if (!username){
+            if (!username) {
                 res.status(401).json({ message: 'Unauthorized😢' });
                 return;
             }
@@ -42,7 +43,7 @@ export class CommentRouter {
             res.status(500).json({ message: "error" });
         }
     }
-
+    //not related
     getComment = async (req: Request, res: Response) => {
         try {
             const comments = await this.commentService.getCommentJson(req.params.category, req.params.dish);
@@ -53,20 +54,25 @@ export class CommentRouter {
             res.status(500).json({ message: 'err' });
         }
     }
-
+    //ok
     updateComment = async (req: Request, res: Response) => {
         try {
             if (!req.body.content.comment) {
                 res.status(400).json({ message: 'Its empty 😒' });
                 return;
             }
+            
             // if (!username){
             //     res.status(401).json({ message: 'Unauthorized😢' });
             //     return;
             // }
             req.body.content.editTime = new Date().toLocaleString();
 
-            const comment = await this.commentService.updateComment(req.params.category, req.params.dish, req.body.orderID, req.body.content);
+            const comment = await this.commentService.updateComment(req.params.category, req.params.dish, req.body.orderID, req.body.content, req.session?.username.username);
+            if (!comment){
+                res.json({ message: 'wrong person' });
+                return;
+            }
             res.json({ message: 'Success 👏🏿' });
 
         } catch (err) {
@@ -81,8 +87,12 @@ export class CommentRouter {
             //     res.status(401).json({ message: 'Unauthorized😢' });
             //     return;
             // }
-            const comments = await this.commentService.deleteComments(req.params.category, req.params.dish, req.body.orderID);
-            res.send(comments);
+            const comments = await this.commentService.deleteComments(req.params.category, req.params.dish, req.body.orderID, req.session?.username.username);
+            if (!comments){
+                res.json({ message: 'wrong person' });
+                return;
+            }
+            res.json({ message: 'Success 👏🏿' });
 
             return;
         } catch (err) {
@@ -93,13 +103,12 @@ export class CommentRouter {
 
     createReply = async (req: Request, res: Response) => {
         try {
-
-            const username = "Ivan"
+            const username = req.session?.username.username.split('@')[0];
             const userIcon = "Hi.jpg"
             const comment = req.body.content.comment;
             const orderID = req.body.content.orderID;
             const editTime = new Date().toLocaleString();
-            if (!username){
+            if (!username) {
                 res.status(401).json({ message: 'Unauthorized😢' });
                 return;
             }
@@ -107,7 +116,7 @@ export class CommentRouter {
                 res.status(400).json({ message: 'The comment is empty~😢' });
                 return;
             }
-    
+
             const dataset = await this.commentService.createReply(req.params.category, req.params.dish, username, userIcon, comment, orderID, editTime);
 
             if (!dataset) {

@@ -1,19 +1,20 @@
 let loggedIn = false;
 
-async function getCurrentUser(){
+async function getCurrentUser() {
     const resFetch = await fetch('/users/getCurrentUser')
     const jsonRes = await resFetch.json();
-
+    console.log('ooooooo')
     console.log(jsonRes)
-    if (jsonRes){
-         loggedIn= true
-         console.log(loggedIn)
-    }else{
-         loggedIn = false
-         console.log(loggedIn)
+    if (jsonRes.username) {
+        loggedIn = true
+        console.log(loggedIn)
+    } else {
+        loggedIn = false
+        console.log(loggedIn)
     }
-    
+
 }
+
 
 // const jsonRes = getCurrentUser();
 
@@ -22,9 +23,11 @@ async function getCurrentUser(){
 function afterLogIn(){
     if (loggedIn){
         const loginbtn = document.querySelector('#login')
+        loginbtn.setAttribute('href','');
+        loginbtn.addEventListener('click', async function() { await fetch('/users/logout') }, {once: true});
         loginbtn.innerHTML = '登出';
         const upload = `<li class="nav-item">
-                            <a href="#" id="upload" class="nav-link btn btn-outline-light btn-lg">上傳</a>
+                            <a href="upload.html" id="upload" class="nav-link btn btn-outline-light btn-lg">上傳</a>
                         </li>`
         loginbtn.parentNode.insertAdjacentHTML('beforebegin', upload)
     }
