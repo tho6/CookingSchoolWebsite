@@ -7,49 +7,82 @@ const dish = currentPath[1];
 console.log(category, dish);
 const username = 'Ivan';
 
-const loggedIn = true;
+let loggedIn = false;
 
-function afterLogIn(){
-    if (loggedIn){
+async function getCurrentUser() {
+    const resFetch = await fetch('/users/getCurrentUser')
+    const jsonRes = await resFetch.json();
+
+    console.log(jsonRes)
+    if (jsonRes) {
+        loggedIn = true
+        console.log(loggedIn)
+    } else {
+        loggedIn = false
+        console.log(loggedIn)
+    }
+
+}
+
+// const jsonRes = getCurrentUser();
+
+// console.log(jsonRes)
+
+function afterLogIn() {
+    if (loggedIn) {
         const loginbtn = document.querySelector('#login')
+        loginbtn.setAttribute('href', '');
+        loginbtn.addEventListener('click', async function () { await fetch('/users/logout') }, { once: true });
         loginbtn.innerHTML = '登出';
         const upload = `<li class="nav-item">
-                            <a href="#" id="upload" class="nav-link btn btn-outline-light btn-lg">上傳</a>
+                            <a href="upload.html" id="upload" class="nav-link btn btn-outline-light btn-lg">上傳</a>
                         </li>`
         loginbtn.parentNode.insertAdjacentHTML('beforebegin', upload)
     }
 }
 
-function findReferring(comments, tempComment){
+
+// function afterLogIn(){
+//     if (loggedIn){
+//         const loginbtn = document.querySelector('#login')
+//         loginbtn.innerHTML = '登出';
+//         const upload = `<li class="nav-item">
+//                             <a href="#" id="upload" class="nav-link btn btn-outline-light btn-lg">上傳</a>
+//                         </li>`
+//         loginbtn.parentNode.insertAdjacentHTML('beforebegin', upload)
+//     }
+// }
+
+function findReferring(comments, tempComment) {
     const allReferring = [];
-    
-    for (const idx of tempComment.referring){
-        let commentIndex = comments.findIndex((comment) => (comment.id==idx));
+
+    for (const idx of tempComment.referring) {
+        let commentIndex = comments.findIndex((comment) => (comment.id == idx));
         // console.log(commentIndex)
-        if (commentIndex !== -1){
+        if (commentIndex !== -1) {
             // console.log('hi')
             allReferring.push(comments[commentIndex]);
             continue;
         }
-        
-        for (const comment in comments){
+
+        for (const comment in comments) {
             const replies = comments[comment].replies
-            if (replies.length !== 0 ){
+            if (replies.length !== 0) {
                 // console.log(replies)
                 // console.log(replies.length)
-                commentIndex = replies.findIndex((comment) => (comment.id==idx));
+                commentIndex = replies.findIndex((comment) => (comment.id == idx));
                 // console.log(commentIndex)
-                if (commentIndex>=0){
+                if (commentIndex >= 0) {
                     // console.log(commentIndex)
                     allReferring.push(comments[comment].replies[commentIndex]);
                 }
             }
         }
     }
-        return allReferring;
-    }
+    return allReferring;
+}
 
-async function readComment(id=null) {
+async function readComment(id = null) {
 
     const fetchRes = await fetch(`/api/v1/comment/${category}/${dish}`);
     let comments = await fetchRes.json();
@@ -57,7 +90,7 @@ async function readComment(id=null) {
     // console.log(comments)
 
     document.querySelector(".comments").innerHTML = '';
-    const headComments = comments.filter(function(item,index,array){
+    const headComments = comments.filter(function (item, index, array) {
         return item.referring.length === 0
     })
     // console.log(headComments)
@@ -285,8 +318,8 @@ async function replyComment() {
             let outerreply = replyBtn.getAttribute('data-outerreply') == 'true'
 
             replyHTML =
-                
-               ` <div class = "comment-section replies-section" data-id=${i}>
+
+                ` <div class = "comment-section replies-section" data-id=${i}>
                         <div class="comment"><textarea class="reply-area" data-id=${i} data-outerreply='${outerreply}' placeholder="留言吧 📣👅"></textarea></div>
                         <div class="comment-footer">`
             // if (comment.userIcon != null) {
@@ -337,19 +370,19 @@ async function replyComment() {
                     replyArea.value = '';
                 }
                 // console.log(replyBtn.parentNode.parentNode)
-                if (replyBtn.parentNode.parentNode.classList.contains('replies-section')){
+                if (replyBtn.parentNode.parentNode.classList.contains('replies-section')) {
                     // if (replyBtn.dataset.outerid){
                     //     main(replyBtn.dataset.outerid);
                     // }else{
-                        // replyBtn.parentNode.parentNode.setAttribute('data-display','true')
-                        console.log(replyBtn.parentNode.parentNode)
-                        console.log("WOWOW")
-                        main(replyBtn.parentNode.parentNode.dataset.id);
+                    // replyBtn.parentNode.parentNode.setAttribute('data-display','true')
+                    console.log(replyBtn.parentNode.parentNode)
+                    console.log("WOWOW")
+                    main(replyBtn.parentNode.parentNode.dataset.id);
                     // }
-                }else{
+                } else {
                     main();
                 }
-                
+
             })
             console.log('hi')
 
@@ -406,17 +439,18 @@ function showBtns() {
     }
 }
 
-function showExisting(id){
-        console.log(id)
-        const all = document.querySelectorAll(`[data-use="hiding"][data-id="${id}"]`);
-        console.log(all)
-        for (const one of all){
-            one.classList.remove('hide');
+function showExisting(id) {
+    console.log(id)
+    const all = document.querySelectorAll(`[data-use="hiding"][data-id="${id}"]`);
+    console.log(all)
+    for (const one of all) {
+        one.classList.remove('hide');
     }
 }
 
 async function main(id) {
-    afterLogIn()
+    await getCurrentUser()
+    afterLogIn();
     await readComment();
     editComment();
     postComment();
