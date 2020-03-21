@@ -3,9 +3,6 @@ import bodyParser from "body-parser";
 import expressSession from "express-session";
 import { isLoggedInHtml, isLoggedInApi } from "./guards";
 import path from 'path'
-import grant from 'grant-express';
-import dotenv from 'dotenv';
-dotenv.config();
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,20 +17,7 @@ app.use(
   })
 );
 
-app.use(grant({
-  "defaults": {
-    "protocol": "http",
-    "host": "localhost:8080",
-    "transport": "session",
-    "state": true,
-  },
-  "google": {
-    "key": process.env.GOOGLE_CLIENT_ID || "",
-    "secret": process.env.GOOGLE_CLIENT_SECRET || "",
-    "scope": ["profile", "email"],
-    "callback": "/users/login/google"
-  },
-}));
+
 
 import { UserService } from './services/UserService';
 import { UserRouter } from './routers/UserRouter';
@@ -52,5 +36,5 @@ app.use(isLoggedInHtml, express.static(path.join(__dirname, './private')));
 
 const PORT = 8080;
 app.listen(PORT, () => {
-  console.log(`Listening at http://localhost:${PORT}/`);
+  console.log(`Listening at http://localhost:${PORT}`);
 });

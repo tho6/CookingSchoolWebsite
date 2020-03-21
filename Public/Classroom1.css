@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 @media(min-aspect-ratio:16/9){
     #videoPlayer{
         width: auto;
@@ -40,8 +40,8 @@
     background-color: lightgray;
 }
 .trash{
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,7 +50,7 @@
     background-color: chartreuse;
     margin: 5px;
 }
-=======
+
 @media(min-aspect-ratio:16/9){
     #video1{
         width: auto;
@@ -92,4 +92,3 @@
     background-color: lightgray;
 }
 
->>>>>>> 0459701e51e07146a7525fbe4c9006f4c1b6a7d5
