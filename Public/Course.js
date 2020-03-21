@@ -1,37 +1,38 @@
-<<<<<<< HEAD
-   //Browser site' 
-   let courseHTML = []
-   let likeNo
+
+   //Browser site'
+  let likeNo = 0
+  let courseHTML = []
    readCategories();
     // <ul id="courseList">
     //<li class="listItem"><img class="courseIcon" src="./${courses[i].png}"><a href="/Classroom1.html">${courses[i].Classroom}</a></li>
     //<li class="listItem"><a href="/Classroom1.html">${courses[i].Classroom}</a></li>
     //</ul>
           
-async function readCategories(){
-    const fetchRes = await fetch('/courses')
-    const courses = await fetchRes.json()
-    
-    document.querySelector('#courseList').innerHTML = ''; // html file class memos , empty is required, to avoid duplicated memo 
-    for (let i = 0; i < courses.length; i++) {
-      courseHTML = `<li class="listItem">`
-      courseHTML = courseHTML + `<a href="/${Object.keys(courses[i])[0]}${i+1}.html">` + courses[i].Classroom + `</a><button class="like"><i id="like" class="fas fa-thumbs-up"></i></button>${likeNo}<button class="trash" data-id="${i}"><i class="fas fa-trash"></i></button></li>`;
-      if (courses[i].png != null) {
-      courseHTML = `<li class="listItem"><img class="courseIcon" src="./${courses[i].png}">`
-      courseHTML = courseHTML + `<a href="/${Object.keys(courses[i])[0]}${i+1}.html">` + courses[i].Classroom + `</a><button class="like"><i id="like" class="fas fa-thumbs-up"></i></button>${likeNo}<button class="trash" data-id="${i}"><i class="fas fa-trash"></i></button></li>`;
+    async function readCategories(){
+      const fetchRes = await fetch('/courses')
+      const courses = await fetchRes.json()
+      
+      document.querySelector('#courseList').innerHTML = ''; // html file class memos , empty is required, to avoid duplicated memo 
+      for (let i = 0; i < courses.length; i++) {
+        courseHTML = `<li class="listItem">`
+        courseHTML = courseHTML + `<a href="/${Object.keys(courses[i])[0]}${i+1}.html">` + courses[i].Classroom + `</a><button class="like"><i id="like" class="fas fa-thumbs-up"></i></button>${likeNo}<button class="trash" data-id="${i}"><i class="fas fa-trash"></i></button></li>`;
+        if (courses[i].png != null) {
+        courseHTML = `<li class="listItem"><img class="courseIcon" src="./${courses[i].png}">`
+        courseHTML = courseHTML + `<a href="/${Object.keys(courses[i])[0]}${i+1}.html">` + courses[i].Classroom + `</a><button class="like"><i id="like" class="fas fa-thumbs-up"></i></button>${likeNo}<button class="trash" data-id="${i}"><i class="fas fa-trash"></i></button></li>`;
+        }
+        document.querySelector('#courseList').innerHTML += courseHTML; // add something into innerHTML      
       }
-      document.querySelector('#courseList').innerHTML += courseHTML; // add something into innerHTML      
-    }
-    const trashes = document.querySelectorAll('.trash');
-    for(const trash of trashes){
-    trash.addEventListener('click', async (event)=>{
-    await fetch('/courses/' + event.target.dataset.id,{ //refer to line no. 15 & 18 data-id="${i}"
-      method: 'DELETE' 
-    })
-    readCategories()
-  })}
-    
-  
+      const trashes = document.querySelectorAll('.trash');
+      for(const trash of trashes){
+      trash.addEventListener('click', async (event)=>{
+      console.log(event.currentTarget.dataset.id)  
+      await fetch('/courses/' + event.currentTarget.dataset.id,{ //refer to line no. 15 & 18 data-id="${i}"
+        method: 'DELETE' 
+      })
+      readCategories()
+    })}
+      
+
 
 }
 
@@ -52,65 +53,3 @@ async function readCategories(){
       })
       readCategories()
   })
-
-
-  
-  // readLikes()
-  // async function readLikes(){
-  //   const fetchRes2 = await fetch('/likes')
-  //   const likeObj = await fetchRes2.json()
-    
-  //   const likes = document.querySelectorAll('.like');
-  //   for(const like of likes){
-  //   like.addEventListener('click', async (event)=>{
-  //   alert(likeObj.likeKey)
-  //   readCategories()
-  // })}
-//}
-=======
-   //Browser site' 
-   let courseHTML = []
-   readCategories();
-    // <ul id="courseList">
-    //<li class="listItem"><img class="courseIcon" src="./${courses[i].png}"><a href="/Classroom1.html">${courses[i].Classroom}</a></li>
-    //<li class="listItem"><a href="/Classroom1.html">${courses[i].Classroom}</a></li>
-    //</ul>
-          
-async function readCategories(){
-    const fetchRes = await fetch('/courses')
-    const courses = await fetchRes.json()
-    document.querySelector('#courseList').innerHTML = ''; // html file class memos , empty is required, to avoid duplicated memo 
-    console.log(courses.length)
-    for (let i = 0; i < courses.length; i++) {
-      courseHTML = `<li class="listItem">`
-      courseHTML = courseHTML + `<a href="/${Object.keys(courses[i])[0]}${courses.length}.html">` + courses[i].Classroom + `</a></li>`;
-      if (courses[i].png != null) {
-      courseHTML = `<li class="listItem"><img class="courseIcon" src="./${courses[i].png}">`
-      courseHTML = courseHTML + `<a href="/${Object.keys(courses[i])[0]}${courses.length}.html">` + courses[i].Classroom + `</a></li>`;
-      }
-      document.querySelector('#courseList').innerHTML += courseHTML; // add something into innerHTML      
-    }
-    //const videoPlayerHTML = `<source src="./`
-    //const listItems = document.querySelectorAll('#courseList .listItem');
-    //for(const listItem of listItems){
-    //listItem.addEventListener('click',(event)=>{
-    //document.querySelector('#videoPlayer').innerHtml = `${videoPlayerHTML}${event.target.id}" type="video/mp4">${myStr}`
-    //document.querySelector('#videoPlayer').src = `./${event.target.id}`
-//})}
-
-}
-    document.querySelector('#addMessageForm').addEventListener('submit', async (event) => {
-      const form = event.currentTarget // currentTarget only available on Form tag
-      event.preventDefault()
-      //if(document.querySelector('#addMessageForm textarea').value == ""){ // adopt innerHtml or Value depends on typing textBox or not 
-
-      //}
-      //if(document.querySelector('#addMessageForm textarea')
-      const formData = new FormData(form)
-      await fetch('/courses',{
-        method: 'POST',
-        body: formData
-      })
-      readCategories()
-  })
->>>>>>> 0459701e51e07146a7525fbe4c9006f4c1b6a7d5

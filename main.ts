@@ -3,9 +3,6 @@ import bodyParser from "body-parser";
 import expressSession from "express-session";
 import { isLoggedInHtml, isLoggedInApi } from "./guards";
 import path from 'path'
-import grant from 'grant-express';
-import dotenv from 'dotenv';
-dotenv.config();
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -52,5 +49,5 @@ app.use(isLoggedInHtml, express.static(path.join(__dirname, './private')));
 
 const PORT = 8080;
 app.listen(PORT, () => {
-  console.log(`Listening at http://localhost:${PORT}/`);
+  console.log(`Listening at http://localhost:${PORT}`);
 });
