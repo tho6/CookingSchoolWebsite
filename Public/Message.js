@@ -5,7 +5,7 @@ currentPath = currentPath.splice(currentPath.indexOf('comment') + 1);
 const category = currentPath[0];
 const dish = currentPath[1];
 console.log(category, dish);
-const username = 'Ivan';
+let username = '';
 
 let loggedIn = false;
 
@@ -15,6 +15,7 @@ async function getCurrentUser() {
     console.log('ooooooo')
     console.log(jsonRes)
     if (jsonRes.username) {
+        username = jsonRes.username.split('@')[0]
         loggedIn = true
         console.log(loggedIn)
     } else {
@@ -241,8 +242,7 @@ async function deleteComment() {
     for (let trash of trashes) {
         trash.addEventListener('click', async (event) => {
             const trashBtn = event.currentTarget;
-            console.log(trashBtn.dataset.id);
-            await fetch(`/api/v1/comment/${category}/${dish}`, {
+            const fetchRes = await fetch(`/api/v1/comment/${category}/${dish}`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -250,6 +250,8 @@ async function deleteComment() {
                     replyTrash: false
                 })
             })
+            let result = await fetchRes.json();
+            alert(await result.message);
             main();
         })
     }
