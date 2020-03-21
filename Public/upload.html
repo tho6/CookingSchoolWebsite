@@ -13,7 +13,22 @@
 </head>
 
 <body>
+  <!-- <form id="addMessageForm" action="/videos" enctype="multipart/form-data" method="POST">
+    <textarea name="topic">Topic</textarea>
+    <select id="category" name="category">
+      <option value="chineseStyle">chineseStyle</option>
+      <option value="westernStyle">westernStyle</option>
+    </select>
+    <textarea name="dish">Dish</textarea>
+    <textarea name="material">material</textarea>
+    <input type="file" name="video" accept="video/*">
+    <input type="submit" value="Post">
+    </form> -->
+
+
+    <a href="/Classroom1.html">previous page</a>
   <div class="container">
+    <form id="addMessageForm" action="/videos" enctype="multipart/form-data" method="POST">
     <h1>上傳菜式</h1>
     <div class="form-group" id="addMessageForm" action="/videos" enctype="multipart/form-data" method="POST">
       <textarea class="form-control" name="topic" rows="2">輸入標題</textarea>
@@ -44,9 +59,11 @@
     <div class="form-group">
     </div>
     <button type="submit" class="btn btn-secondary btn-md" value="Post">送出</button>
+  </form>
   </div>
 
-  <!-- <script src="./upload.js" async defer></script> -->
+  
+  <script src="./upload.js" async defer></script>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
     crossorigin="anonymous"></script>
