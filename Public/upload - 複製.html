@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classroom1</title>
+  <link href="https://cdn.bootcss.com/font-awesome/5.12.1/css/all.css" rel="stylesheet">
+  <link href="upload.css" rel="stylesheet">
+  <link href="favicon.ico" rel="shortcut icon">
+</head>
+<body>
+  <a href="/Classroom1.html">previous page</a>
+    
+<form id="addMessageForm" action="/videos" enctype="multipart/form-data" method="POST">
+    <textarea name="topic">Topic</textarea>
+    <select id="category" name="category">
+      <option value="chineseStyle">chineseStyle</option>
+      <option value="westernStyle">westernStyle</option>
+    </select>
+    <textarea name="dish">Dish</textarea>
+    <textarea name="material">material</textarea>
+    <input type="file" name="video" accept="video/*">
+    <input type="submit" value="Post">
+    </form>
+  
+
+    <script src="upload.js"></script>
+</body>
+</html>    

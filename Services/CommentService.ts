@@ -31,15 +31,21 @@ export class CommentService{
     }
 
     //work work
-    async updateComment(category: string, dish: string, orderID: number, commentOpt:{comment?: string, editTime: number}) {
+    async updateComment(category: string, dish: string, orderID: number, commentOpt:{comment?: string, editTime: number}, username: string) {
         const dataset = await this.getCommentJson(category, dish);
         const idx = await this.checkID(category, dish, orderID);
         const comments = dataset.comments
+        const newUsername = username.split('@')[0];
         if (idx){
             if (idx.length ===1){
+                if (comments[idx[0]].username !== newUsername){
+                    return false
+                }
                 Object.assign(comments[idx[0]], commentOpt);
             }else if (idx.length ===2){
-                console.log(comments[idx[0]])
+                if (comments[idx[0]].replies[idx[1]].username !== newUsername){
+                    return false
+                }
                 Object.assign(comments[idx[0]].replies[idx[1]], commentOpt);
             }
         }
@@ -83,18 +89,23 @@ export class CommentService{
 
     }
     //work work
-    async deleteComments(category: string, dish: string, orderID: number){
+    async deleteComments(category: string, dish: string, orderID: number, username:string){
         const dataset = await this.getCommentJson(category, dish)
         // const order = parseInt(orderID);
         // console.log(orderID);
         const idx = await this.checkID(category, dish, orderID);
         const comments = dataset.comments
-        console.log(idx)
+        const newUsername = username.split('@')[0];
         if (idx){
             if (idx.length ===1){
+                if (comments[idx[0]].username !== newUsername){
+                    return false
+                }
                 comments.splice(idx[0], 1)
             }else if (idx.length ===2){
-                console.log(comments[idx[0]])
+                if (comments[idx[0]].replies[idx[1]].username !== newUsername){
+                    return false
+                }
                 comments[idx[0]].replies.splice(idx[1], 1)
             }
         }

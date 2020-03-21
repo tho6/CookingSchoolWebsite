@@ -1,6 +1,5 @@
-     //let myStr = 'Your Browser does not support MP4 videos, please change browser!' 
-   let videoHTML = []
-   readVideos();   
+  let videoHTML = []
+  readVideos();   
   async function readVideos(){
     const fetchRes = await fetch('/videos')
     const videos = await fetchRes.json()

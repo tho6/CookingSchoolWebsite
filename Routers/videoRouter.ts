@@ -1,17 +1,18 @@
 import express from 'express'
 import {Request, Response} from 'express'
 import {VideoService} from '../Services/videoService'
-import {upload} from '../Video'
+//import {upload} from '../main'
+//import {Multer} from 'multer'
 export class VideoRouter{
     
-    constructor(private videoService:VideoService){
+    constructor(private videoService:VideoService,private upload:any){
 
     }
 
     router(){
         const router = express.Router()
         router.get('/videos',this.getVideos)
-        router.post('/videos', upload.single('video'),this.postVideo)
+        router.post('/videos', this.upload.single('video'),this.postVideo)
         router.delete('/videos/:id',this.removeVideo)
         return router
     }

@@ -1,79 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HomePage</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
-  <link href="index.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomePage</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdn.bootcss.com/font-awesome/5.12.1/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
 </head>
-<body>
-  <a href="/Classroom1.html">next page</a>
-  <div class="row1">there are 3 columns</div>
-  <div class="loginFormContainer_Hidden">
-    <form class="loginForm" action="/Pathname" method="POST"> 
-      <div class="line">
-      <label class="label" for="UserName">User Name:</label>
-      <input class="input" name="UserName" type="text" placeholder="4-12 digits with Alphanumeric" required pattern="[0-9a-zA-Z]{4,12}">
-      <span class="ok">ok</span>
-      </div>
-      <div class="line">
-      <label class="label" for="Password">Password:</label>
-      <input class="input" name="Password" type="text" placeholder="6-16 digits with Alphanumeric" required pattern="[0-9a-zA-Z]{6,16}">
-      <span class="ok">ok</span>
-      </div>
-      <div class="line">
-      <input class="submit" type="submit">
-      </div>
-    </form>
+
+<body data-spy='scroll' data-target="#navbarResponsive">
+
+    <!-------Start Home Section-------->
+    <div id="home">
+        <!--- Navigation --->
+        <div>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+                <a href="#home" class="navbar-brand"><img src="homeImg/brand2.png" alt=""></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#home" class="nav-link">首頁</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#categories" class="nav-link">菜式</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a href="#contact" class="nav-link">聯絡我們</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/connect/google" id="login" class="nav-link btn btn-outline-light btn-lg">登入</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- - End Navigation -->
+
+        <!-- -----Start CArosuel Section-->
+        <div class="landing">
+            <div class="home-wrap">
+                <div class="home-inner">
+                </div>
+            </div>
+        </div>
+
+        <div class="caption text-center">
+            <h1>Cooking is like chemistry</h1>
+            <h3>Enjoy Cooking</h3>
+            <a href="#categories" class="btn btn-outline-light btn-lg">Get Started</a>
+        </div>
+
     </div>
-      
-  <div class="row2">
-    <div class=box1>
-      <div class="sloganContainer1">
-        <div id="circle1"></div>
-        <div id="circle2"></div>
-        <div id="circle3"></div>
-      </div>
-      <div class="sloganContainer2">mmm</div>
-      <div id="memo1">that</div>
-      <div id="memo2">hello</div>
+
+
+    <div id="categories" class="offset">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-4 d-flex justify-content-center">
+                    <div class="card" style="width: 18rem;">
+                        <a href="Classroom1.html">
+                            <img class="card-img-top cuisine-img" src="homeImg/chinese_cuisine.jpeg"
+                                alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">中式</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4 d-flex justify-content-center">
+                    <div class="card" style="width: 18rem;">
+                        <a href="#">
+                            <img class="card-img-top cuisine-img" src="homeImg/italian_cuisine.jpg"
+                                alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">意大利菜</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4 d-flex justify-content-center">
+                    <div class="card" style="width: 18rem;">
+                        <a href="#">
+                            <img class="card-img-top cuisine-img" src="homeImg/french_cuisine.jpg"
+                                alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">法國菜</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-4 d-flex justify-content-center">
+                    <div class="card" style="width: 18rem;">
+                        <a href="#">
+                            <img class="card-img-top cuisine-img" src="homeImg/indian_cuisine.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">印度菜</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4 d-flex justify-content-center">
+                    <div class="card" style="width: 18rem;">
+                        <a href="#">
+                            <img class="card-img-top cuisine-img" src="homeImg/thai_cuisine.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">泰國菜</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4 d-flex justify-content-center">
+                    <div class="card" style="width: 18rem;">
+                        <a href="#">
+                            <img class="card-img-top cuisine-img" src="homeImg/vietnamese_cuisine.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">越南菜</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 d-flex justify-content-center">
+                    <div class="card" style="width: 18rem;">
+                        <a href="#">
+                            <img class="card-img-top cuisine-img" src="homeImg/japanese_cuisine.jpeg" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">日本菜</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4 d-flex justify-content-center">
+                    <div class="card" style="width: 18rem;">
+                        <a href="#">
+                            <img class="card-img-top cuisine-img" src="homeImg/korean_cuisine.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">韓國料理</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
     </div>
-  </div>
 
-  <div class="row3">
-    <div class="iconContainer">
-    <img  id="alex" src="icon1.png">
-    <img  id="jason" src="icon2.png">
-    <img  id="gordon" src="icon3.png">
-    <img  id="t1" src="icon4.png">
-    <img  id="t2" src="icon5.png">
-    <img  id="t3" src="icon6.png">
+    <div class="pimg2">
+
     </div>
-  </div>
 
-  
+    <div id="clients" class="offset">
+        <div class="col-12 narrow text-center">
+            <p class="lead">仲唔快D報名🥘?</p>
+            <a href="http://google.com" class="btn btn-secondary btn-md" target="_blank">Register</a>
+        </div>
+    </div>
 
-<div class="row4">
-  <div class="cardContainer">
+    <div id="contact" class="offset">
+        <footer>
+            <div class="row justify-content-center">
+                <div class="col-md-5 text-center">
+                    <img src="./homeImg/brand2.png" alt="">
+                    <p><strong>Contact Info</strong></p>
+                    <p>2828-2828<br>email@gmail.com</br></p>
+                    <a href="http://www.facebook.com" target="_blank"><i class="fab fa-facebook-square"></i></a>
+                    <a href="http://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
 
-    <ul id="courseList">
-      
-    </ul>
-  
-  </div>
-</div>
-  
 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="index.js"></script>
 
-
-<form id="addMessageForm" action="/courses" enctype="multipart/form-data" method="POST">
-  <textarea name="Classroom"></textarea>
-  <input type="file" name="image" accept="image/*"> 
-  <input type="submit" value="Post">
-</form>
-
-  
-  <script src="Course.js"></script>
 </body>
+
 </html>

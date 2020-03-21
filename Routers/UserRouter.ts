@@ -3,19 +3,18 @@ import fetch from 'node-fetch'
 import { UserService } from "../services/UserService";
 import { checkPassword } from "../hash";
 
-// import { isLoggedInApi } from "../guards"
 
 export class UserRouter {
   constructor(private userService: UserService) { }
 
   router() {
     const router = express.Router();
-    // router.post("/", isLoggedInApi, this.createUser);
     router.get("/login/google", this.loginGoogle);
     router.post("/", this.createUser);
     router.post("/login", this.login);
     router.get("/logout", this.logout);
-    router.get("/abc", this.checkSession);
+    router.get("/getCurrentUser", this.getCurrentUser);
+    
     return router;
   }
 
@@ -23,7 +22,7 @@ export class UserRouter {
     if (req.session) {
       console.log(req.session);
     }
-    res.send("nono");
+    res.send("show test"); // change
   }
 
   createUser = async (req: Request, res: Response) => {
@@ -42,12 +41,13 @@ export class UserRouter {
     }
   }
 
-  login = async (req: Request, res: Response) => {
+  login = async (req: Request, res: Response) => { // remove later
     const { username, password } = req.body;
     const user = await this.userService.getUserByUsername(username);
     console.log("step 1");
     console.log(user);
     if (!user) {
+      console.log("1A");
       return res.status(401).redirect("/login.html?error=Incorrect+Username");
     }
     const match = await checkPassword(password, user.password);
@@ -63,18 +63,29 @@ export class UserRouter {
       }
       return res.redirect("/");
     } else {
+      console.log("2A");
       return res.status(401).redirect("/login.html?error=Incorrect+Username");
     }
   };
 
   logout = async (req: express.Request, res: express.Response) => {
     if (req.session) {
-      delete req.session.user;
+      delete req.session.username;
     }
-    res.redirect("/login.html");
+    console.log("3A");
+    res.redirect("/");
   };
 
-
+  getCurrentUser = (req: express.Request, res: express.Response) => {
+    if (req.session?.username){
+      console.log(req.session.username)
+      console.log("NEW")
+      res.send(req.session.username)
+      return
+    }
+    res.send({'username':false})
+  }
+  
   loginGoogle = async (req: express.Request, res: express.Response) => {
     console.log("in google?")
     const accessToken = req.session?.grant.response.access_token;
@@ -113,10 +124,22 @@ export class UserRouter {
       // req.session.user = {
       //   id: tmpUserId
       // };
-      
-        req.session.username = "abcde";
-      
+      req.session.username = {'username':user?.username};
+      console.log(req.session.username) // get session user id
+
+      // req.session.username = "abcde"; // test
+
       return res.redirect("/");
     }
-  };
+
+
+    // if (req.session) {
+    //   console.log(req.session?.grant) // tried to get google profile
+    // };
+
+    //
+
+    //
+
+  }
 }

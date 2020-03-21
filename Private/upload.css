@@ -1,0 +1,17 @@
+body {
+    /* height: 30em; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0
+}
+/* 
+
+@import "bootstrap/functions";
+
+$custom-file-text: (
+  en: "Browse",
+  zh-TW: "xxxxx"
+);
+
+@import "bootstrap"; */
