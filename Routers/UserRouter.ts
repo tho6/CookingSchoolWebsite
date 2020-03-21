@@ -23,7 +23,7 @@ export class UserRouter {
     if (req.session) {
       console.log(req.session);
     }
-    res.send("nono");
+    res.send("show test"); // change
   }
 
   createUser = async (req: Request, res: Response) => {
@@ -113,10 +113,21 @@ export class UserRouter {
       // req.session.user = {
       //   id: tmpUserId
       // };
-      
-        req.session.username = "abcde";
-      
+      console.log(req.session.id) // get session user id
+
+      // req.session.username = "abcde"; // test
+
       return res.redirect("/");
     }
-  };
+
+
+    // if (req.session) {
+    //   console.log(req.session?.grant) // tried to get google profile
+    // };
+
+    //
+
+    //
+
+  }
 }
