@@ -15,7 +15,8 @@ export class UserRouter {
     router.post("/", this.createUser);
     router.post("/login", this.login);
     router.get("/logout", this.logout);
-    router.get("/abc", this.checkSession);
+    router.get("/getCurrentUser", this.getCurrentUser);
+    
     return router;
   }
 
@@ -74,7 +75,16 @@ export class UserRouter {
     res.redirect("/login.html");
   };
 
-
+  getCurrentUser = (req: express.Request, res: express.Response) => {
+    if (req.session){
+      console.log(req.session.username)
+      console.log("NEW")
+      res.send(req.session.username)
+      return
+    }
+    res.send({'status':false})
+  }
+  
   loginGoogle = async (req: express.Request, res: express.Response) => {
     console.log("in google?")
     const accessToken = req.session?.grant.response.access_token;
@@ -113,7 +123,8 @@ export class UserRouter {
       // req.session.user = {
       //   id: tmpUserId
       // };
-      console.log(req.session.id) // get session user id
+      req.session.username = user;
+      console.log(req.session.username) // get session user id
 
       // req.session.username = "abcde"; // test
 

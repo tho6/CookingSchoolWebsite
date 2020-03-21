@@ -4,7 +4,6 @@ import expressSession from "express-session";
 import { isLoggedInHtml } from "./guards";
 import {CommentRouter} from "./routers/CommentRouter"
 import {CommentService} from "./services/CommentService"
-
 import path from 'path'
 
 const app = express();
@@ -19,7 +18,9 @@ app.use(
     cookie: { secure: false }
   })
 );
-
+import dotenv from 'dotenv';
+dotenv.config();
+import grant from 'grant-express';
 app.use(grant({
   "defaults": {
     "protocol": "http",
