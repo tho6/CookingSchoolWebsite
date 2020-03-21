@@ -1,29 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Classroom1</title>
-  <link href="https://cdn.bootcss.com/font-awesome/5.12.1/css/all.css" rel="stylesheet">
-  <link href="upload.css" rel="stylesheet">
-  <link href="favicon.ico" rel="shortcut icon">
-</head>
-<body>
-  <a href="/Classroom1.html">previous page</a>
-    
-<form id="addMessageForm" action="/videos" enctype="multipart/form-data" method="POST">
-    <textarea name="topic">Topic</textarea>
-    <select id="category" name="category">
-      <option value="chineseStyle">chineseStyle</option>
-      <option value="westernStyle">westernStyle</option>
-    </select>
-    <textarea name="dish">Dish</textarea>
-    <textarea name="material">material</textarea>
-    <input type="file" name="video" accept="video/*">
-    <input type="submit" value="Post">
-    </form>
-  
 
-    <script src="upload.js"></script>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>上傳</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="upload.css">
+</head>
+
+<body>
+  <div id="login" class="container">
+    <h1>上傳菜式</h1>
+    <div class="form-group" id="addMessageForm" action="/videos" enctype="multipart/form-data" method="POST">
+      <textarea class="form-control" name="topic" rows="2">輸入標題</textarea>
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">選擇菜式種類</label>
+      <select class="custom-select" id="category" name="category">
+        <option value="chinese">中式</option>
+        <option value="italian">意大利菜</option>
+        <option value="italian">法國菜</option>
+        <option value="italian">印度菜</option>
+        <option value="italian">泰國菜</option>
+        <option value="italian">越南菜</option>
+        <option value="italian">日本菜</option>
+        <option value="italian">韓國料理</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <textarea class="form-control" name="dish" rows="2">輸入菜式名稱</textarea>
+    </div>
+    <div class="form-group">
+      <textarea class="form-control" name="material" rows="4">輸入食材</textarea>
+    </div>
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" lang="zh-TW" name="video" accept="video/*">
+      <label class="custom-file-label" for="customFile">選擇檔案</label>
+    </div>
+    <div class="form-group">
+    </div>
+    <button type="submit" class="btn btn-secondary btn-md" value="Post">送出</button>
+  </div>
+
+  <!-- <script src="./upload.js" async defer></script> -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
 </body>
-</html>    
+
+</html>

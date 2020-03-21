@@ -1,39 +1,86 @@
-let currentPath = "localhost:8080/api/v1/comment/no/way"
+let currentPath = "localhost:8080/api/v1/comment/hi/bye"
 currentPath = currentPath.split('.')[0];
 currentPath = currentPath.split('/');
 currentPath = currentPath.splice(currentPath.indexOf('comment') + 1);
 const category = currentPath[0];
 const dish = currentPath[1];
 console.log(category, dish);
+const username = 'Ivan';
+
+const loggedIn = true;
+
+function afterLogIn(){
+    if (loggedIn){
+        const loginbtn = document.querySelector('#login')
+        loginbtn.innerHTML = '登出';
+        const upload = `<li class="nav-item">
+                            <a href="#" id="upload" class="nav-link btn btn-outline-light btn-lg">上傳</a>
+                        </li>`
+        loginbtn.parentNode.insertAdjacentHTML('beforebegin', upload)
+    }
+}
+
+function findReferring(comments, tempComment){
+    const allReferring = [];
+    
+    for (const idx of tempComment.referring){
+        let commentIndex = comments.findIndex((comment) => (comment.id==idx));
+        // console.log(commentIndex)
+        if (commentIndex !== -1){
+            // console.log('hi')
+            allReferring.push(comments[commentIndex]);
+            continue;
+        }
+        
+        for (const comment in comments){
+            const replies = comments[comment].replies
+            if (replies.length !== 0 ){
+                // console.log(replies)
+                // console.log(replies.length)
+                commentIndex = replies.findIndex((comment) => (comment.id==idx));
+                // console.log(commentIndex)
+                if (commentIndex>=0){
+                    // console.log(commentIndex)
+                    allReferring.push(comments[comment].replies[commentIndex]);
+                }
+            }
+        }
+    }
+        return allReferring;
+    }
 
 async function readComment(id=null) {
 
     const fetchRes = await fetch(`/api/v1/comment/${category}/${dish}`);
-    const comments = await fetchRes.json();
+    let comments = await fetchRes.json();
+    comments = comments.comments;
     // console.log(comments)
 
     document.querySelector(".comments").innerHTML = '';
-
-
-    for (let i = 0; i < comments.length; i++) {
+    const headComments = comments.filter(function(item,index,array){
+        return item.referring.length === 0
+    })
+    // console.log(headComments)
+    for (let i = 0; i < headComments.length; i++) {
         // let commentHTML = '<div class = "comment-section">';
         if (i == 0) {
             let commentBtnHTML = document.querySelector('.post-comment-btn.text-right')
-            console.log(commentBtnHTML);
+            // console.log(commentBtnHTML);
             commentBtnHTML.innerHTML = '';
-            commentBtnHTML.innerHTML = '<button type="button" class="btn btn-primary" id="post-comment-btn">Post comment</button>';
+            commentBtnHTML.innerHTML = '<button type="button" class="btn btn-primary" id="post-comment-btn">留言</button>';
         }
-        const comment = comments[i];
+        const comment = headComments[i];
+        // console.log(comment)
         let commentHTML =
-            `<div class = "comment-section">
+            `<div class = "comment-section" data-username='${comment.username}'>
                     <div class="comment">${comment.comment}</div>
                     <div class="comment-footer">`
         if (comment.replies.length == 1) {
-            commentHTML += `<button class="btn show-btn d-inline-block" data-id=${i}>Show Reply
+            commentHTML += `<button class="btn show-btn d-inline-block" data-id=${comment.id}>顯示回應
                                 <i class="fas fa-caret-down"></i>
                             </button>`
         } else if (comment.replies.length > 1) {
-            commentHTML += `<button class="btn show-btn d-inline-block" data-id=${i}>Show Replies
+            commentHTML += `<button class="btn show-btn d-inline-block" data-id=${comment.id}>顯示回應
                                 <i class="fas fa-caret-down"></i>
                             </button>`
         }
@@ -44,47 +91,52 @@ async function readComment(id=null) {
 
         commentHTML += `<div class="username d-inline-block">${comment.username}</div>
                         <div class="edit-time d-inline-block">${comment.editTime}</div>
-                        <button class="btn reply-btn hide"  data-outerreply = 'true' data-id=${i}>
+                        <button class="btn reply-btn hide"  data-outerreply = 'true' data-username='${comment.username}' data-id=${comment.id}>
                             <i class="fas fa-reply"></i>
                         </button>
-                        <button class="btn edit-btn hide" data-outerEdit = 'true' data-id=${i}>
+                        <button class="btn edit-btn hide" data-outerEdit = 'true' data-username='${comment.username}' data-id=${comment.id}>
                             <i class="fas fa-pencil-alt "></i>
                         </button>
-                        <button class="btn trash-btn hide" data-outerTrash = 'true' data-id=${i}>
+                        <button class="btn trash-btn hide" data-outerTrash = 'true' data-username='${comment.username}' data-id=${comment.id}>
                             <i class="far fa-trash-alt"></i>
                         </button>
                     </div>
                 </div>`
 
         for (let j = 0; j < comment.replies.length; j++) {
+            // let tempComment = comments.find((tempcomment)=>(tempcomment.id==comment.replies[j]))
+            let tempComment = comment.replies[j];
+            const allReferring = findReferring(comments, tempComment);
             commentHTML +=
-                `<div class="col-xl-6 hide" data-use="hiding" data-id=${i} data-open="false"></div>
-                <div class = "col-xl-6 replies-section hide" data-use="hiding" data-id=${i} data-open="false">`
-            for (let k = 0; k < comment.replies[j].referring.length; k++) {
-                let totalIndentation = comment.replies[j].referring.length * 10 - k * 10;
+                // <div class="hide" data-use="hiding" data-id=${i} data-open="false"></div>
+                `
+                <div class = "replies-section hide" data-username='${comment.username}' data-use="hiding" data-display='false' data-id=${comment.id} data-open="false">`
+            for (let k = 0; k < allReferring.length; k++) {
+                let totalIndentation = allReferring.length * 10 - k * 10;
                 commentHTML +=
-                    `<div class="referring-comment" style="padding-left:${totalIndentation}px">${comment.replies[j].referring[k].comment}</div>`
+                    `<div class="referring-comment" style="padding-left:${totalIndentation}px">${allReferring[k].comment}</div>`
             }
             commentHTML +=
-                `<div class="comment">${comment.replies[j].comment}</div>
+                `<div class="comment">${tempComment.comment}</div>
                         <div class="comment-footer">`
-            if (comment.userIcon != null) {
-                commentHTML += `<img src="${comment.replies[j].userIcon}"</img>`
+            if (tempComment.userIcon != null) {
+                commentHTML += `<img src="${tempComment.userIcon}"</img>`
             }
             commentHTML +=
-                `<div class="username d-inline-block">${comment.replies[j].username}</div>
-                        <div class="edit-time d-inline-block">${comment.replies[j].editTime}</div>
-                        <button class="btn reply-btn hide" data-outerreply ='false' data-outerid = ${i} data-id=${j}>
+                `<div class="username d-inline-block">${tempComment.username}</div>
+                        <div class="edit-time d-inline-block">${tempComment.editTime}</div>
+                        <button class="btn reply-btn hide" data-outerreply ='false' data-username='${tempComment.username}' data-id=${tempComment.id}>
                             <i class="fas fa-reply"></i>
                         </button>
-                        <button class="btn edit-btn hide" data-innerEdit = 'true' data-outerid = ${i} data-id=${j}>
+                        <button class="btn edit-btn hide" data-innerEdit = 'true' data-username='${tempComment.username}' data-id=${tempComment.id}>
                             <i class="fas fa-pencil-alt "></i>
                         </button>
-                        <button class="btn trash-btn reply-trash-btn hide" data-innerTrash = 'true' data-outerid = ${i} data-id=${j}>
+                        <button class="btn trash-btn reply-trash-btn hide" data-innerTrash = 'true' data-username='${tempComment.username}' data-id=${tempComment.id}>
                             <i class="far fa-trash-alt"></i>
                         </button>
                     </div>
-                </div>`
+                </div>
+                `
         }
         document.querySelector(".comments").innerHTML += commentHTML;
 
@@ -105,6 +157,7 @@ async function editComment() {
             // document.getElementById(btn.id).disabled = true;
             commentDiv.querySelector("textarea").addEventListener('blur', async (event) => {
                 const newValue = commentDiv.querySelector('textarea').value;
+                // console.log(editBtn.dataset.id)
                 if (comment != newValue) {
                     commentDiv.innerHTML = newValue;
                     if (editBtn.getAttribute('data-innerEdit')) {
@@ -116,7 +169,7 @@ async function editComment() {
                             },
                             body: JSON.stringify({
                                 orderID: editBtn.dataset.id,
-                                outerID: editBtn.dataset.outerid,
+                                // outerID: editBtn.dataset.outerid,
                                 content: {
                                     comment: newValue
                                 }
@@ -126,7 +179,7 @@ async function editComment() {
                         alert(await result.message);
 
                     } else {
-                        console.log(outer)
+                        // console.log(outer)
                         const fetchRes = await fetch(`/api/v1/comment/${category}/${dish}`, {
                             method: 'PATCH',
                             headers: {
@@ -144,48 +197,10 @@ async function editComment() {
                     }
 
                 }
-                main();
+                main(editBtn.parentNode.parentNode.dataset.id);
             })
         })
     }
-    // ~~~~~~~~~~~Edit Replies~~~~~~~~~~
-    // const replyEdits = document.querySelectorAll("[data-innerEdit = 'true']")
-    // // console.log(edits)
-    // for (const replyEdit of replyEdits) {
-    //     // console.log(edit)
-    //     replyEdit.addEventListener('click', (event) => {
-    //         const editBtn = event.currentTarget;
-    //         const commentDiv = editBtn.parentNode.parentNode.querySelector(".comment")
-    //         const comment = commentDiv.innerHTML;
-    //         commentDiv.innerHTML = `<textarea id="form24" class="md-textarea form-control text-area" rows="3">${comment}</textarea>`
-    //         commentDiv.querySelector("textarea").focus();
-    //         // document.getElementById(btn.id).disabled = true;
-    //         commentDiv.querySelector("textarea").addEventListener('blur', async (event) => {
-    //             const newValue = commentDiv.querySelector('textarea').value;
-    //             if (comment != newValue) {
-    //                 commentDiv.innerHTML = newValue;
-    //                 console.log(editBtn.dataset.outid)
-    //                 const fetchRes = await fetch(`/api/v1/comment/${category}/${dish}`, {
-    //                     method: 'PATCH',
-    //                     headers: {
-    //                         'Content-Type': 'application/json'
-    //                     },
-    //                     body: JSON.stringify({
-    //                         orderID: editBtn.dataset.id,
-    //                         outerID: editBtn.dataset.outid,
-    //                         content: { 
-    //                             comment: newValue
-    //                          }
-    //                     })
-    //                 })
-    //                 let result = await fetchRes.json();
-    //                 alert(await result.message);
-    //             }
-    //             main();
-    //         })
-    //     })
-    // }
-
 }
 
 async function deleteComment() {
@@ -202,7 +217,7 @@ async function deleteComment() {
                     replyTrash: false
                 })
             })
-            await main();
+            main();
         })
     }
 
@@ -215,11 +230,11 @@ async function deleteComment() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     orderID: `${trashBtn.dataset.id}`,
-                    outerID: `${trashBtn.dataset.outerid}`,
+                    // outerID: `${trashBtn.dataset.outerid}`,
                     replyTrash: true
                 })
             })
-            await main();
+            main(trashBtn.parentNode.parentNode.dataset.id);
         })
     }
 
@@ -243,8 +258,6 @@ async function postComment() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 content: {
-                    username: "Ivan",
-                    userIcon: "Hi.jpg",
                     comment: commentArea.value
                 }
             })
@@ -263,19 +276,18 @@ async function postComment() {
 
 async function replyComment() {
     const replies = document.querySelectorAll('.reply-btn');
-    const replyFunc = function (event) {
-
-    }
+    console.log(replies)
     for (let i = 0; i < replies.length; i++) {
         replies[i].addEventListener('click', (event) => {
             const replyBtn = event.currentTarget;
+            console.log(replyBtn)
             let replyHTML = '';
             let outerreply = replyBtn.getAttribute('data-outerreply') == 'true'
 
             replyHTML =
-                `<div class ='col-xl-4'></div>
-                <div class = "col-xl-8 comment-section reply-section" data-id=${i}>
-                        <div class="comment"><textarea class="reply-area" data-id=${i} data-outerreply='${outerreply}' placeholder="Leave Comments~~👅"></textarea></div>
+                
+               ` <div class = "comment-section replies-section" data-id=${i}>
+                        <div class="comment"><textarea class="reply-area" data-id=${i} data-outerreply='${outerreply}' placeholder="留言吧 📣👅"></textarea></div>
                         <div class="comment-footer">`
             // if (comment.userIcon != null) {
             //     commentHTML += `<img src="${comment.userIcon}"</img>`
@@ -304,13 +316,13 @@ async function replyComment() {
                 } else {
                     console.log('hhhhhh')
                     console.log(replyBtn)
-                    console.log(replyBtn.dataset.outerid, replyBtn.dataset.id)
+                    // console.log(replyBtn.dataset.outerid, replyBtn.dataset.id)
                     const fetchRes = await fetch(`/api/v1/comment/${category}/${dish}`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             content: {
-                                outerID: replyBtn.dataset.outerid,
+                                // outerID: replyBtn.dataset.outerid,
                                 username: "Ivan",
                                 userIcon: "Hi.jpg",
                                 comment: replyArea.value,
@@ -324,11 +336,20 @@ async function replyComment() {
 
                     replyArea.value = '';
                 }
-                if (replyBtn.dataset.outerid){
-                    main(replyBtn.dataset.outerid);
+                // console.log(replyBtn.parentNode.parentNode)
+                if (replyBtn.parentNode.parentNode.classList.contains('replies-section')){
+                    // if (replyBtn.dataset.outerid){
+                    //     main(replyBtn.dataset.outerid);
+                    // }else{
+                        // replyBtn.parentNode.parentNode.setAttribute('data-display','true')
+                        console.log(replyBtn.parentNode.parentNode)
+                        console.log("WOWOW")
+                        main(replyBtn.parentNode.parentNode.dataset.id);
+                    // }
                 }else{
-                    main(replyBtn.dataset.id);
+                    main();
                 }
+                
             })
             console.log('hi')
 
@@ -347,10 +368,10 @@ function showMore() {
     for (const show of shows) {
         show.addEventListener('click', (event) => {
             const showBtn = event.currentTarget;
-            console.log('working');
-            console.log(showBtn.classList);
+            // console.log('working');
+            // console.log(showBtn.classList);
             const hides = document.querySelectorAll(`[data-use=hiding][data-id='${showBtn.dataset.id}'`)
-            console.log(hides)
+            // console.log(hides)
             for (let hide of hides) {
                 if (hide.classList.contains('hide')) {
                     hide.classList.remove('hide');
@@ -365,7 +386,7 @@ function showMore() {
 }
 
 function showBtns() {
-    const sections = document.querySelectorAll('.replies-section, .comment-section')
+    const sections = document.querySelectorAll(`.replies-section[data-username='${username}'],.comment-section[data-username='${username}']`)
     for (const section of sections) {
         section.addEventListener('mouseover', (event) => {
             const area = event.currentTarget;
@@ -386,14 +407,16 @@ function showBtns() {
 }
 
 function showExisting(id){
-    
-        const all = document.querySelectorAll(`[data-use="hiding"][data-id='${id}']`);
+        console.log(id)
+        const all = document.querySelectorAll(`[data-use="hiding"][data-id="${id}"]`);
+        console.log(all)
         for (const one of all){
             one.classList.remove('hide');
     }
 }
 
 async function main(id) {
+    afterLogIn()
     await readComment();
     editComment();
     postComment();

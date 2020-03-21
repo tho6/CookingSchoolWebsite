@@ -1,4 +1,4 @@
-const loggedIn = true;
+const loggedIn = false;
 
 function afterLogIn(){
     if (loggedIn){
@@ -11,4 +11,9 @@ function afterLogIn(){
     }
 }
 
+function redirCategories{
+    
+}
+
+//
 afterLogIn();

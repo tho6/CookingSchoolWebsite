@@ -17,7 +17,20 @@ app.use(
   })
 );
 
-
+app.use(grant({
+  "defaults": {
+    "protocol": "http",
+    "host": "localhost:8080",
+    "transport": "session",
+    "state": true,
+  },
+  "google": {
+    "key": process.env.GOOGLE_CLIENT_ID || "",
+    "secret": process.env.GOOGLE_CLIENT_SECRET || "",
+    "scope": ["profile", "email", ""], // icon
+    "callback": "/users/login/google"
+  },
+}));
 
 import { UserService } from './services/UserService';
 import { UserRouter } from './routers/UserRouter';

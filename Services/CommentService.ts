@@ -1,118 +1,154 @@
 import path from 'path'
 import jsonfile from 'jsonfile'
-
+// import {CommentDataset} from '../models/comment'
 export class CommentService{
-    
+    //work work
     async getCommentJson(category: string, dish: string) {
         return await jsonfile.readFile(path.join(__dirname, `../commentsJson/${category}_${dish}_comment.json`));
     }
-
+    //work but seems useless
+    async getSpecificComment(category: string, dish: string, checkID:number) {
+        let {comments} = await this.getCommentJson(category, dish)
+        
+        const comment = comments.find((Comment:any) => Comment.id==checkID) 
+        return comment;
+    }
+    //work work
     async createComment(category: string, dish: string, username: string, userIcon: string, comment: string, editTime: string) {
         const dataset = await this.getCommentJson(category, dish);
         const userdata = {
+            id: dataset.nextid++,
             username,
             userIcon,
             comment,
             replies : [],
+            referring:[],
             editTime
-        };
-        dataset.unshift(userdata);
+        }
+        dataset.comments.unshift(userdata);
         await jsonfile.writeFile(path.join(__dirname, `../commentsJson/${category}_${dish}_comment.json`),dataset);
         return userdata;
     }
 
-    async updateComment(category: string, dish: string, orderID: string, commentOpt:{comment?: string, editTime: number}) {
-        
-        const comments = await this.getCommentJson(category, dish);
-        const order = parseInt(orderID);
-        const comment = comments[order];
-        Object.assign(comment, commentOpt);
-        await jsonfile.writeFile(path.join(__dirname, `../commentsJson/${category}_${dish}_comment.json`), comments);
-        return comments;
-    }
-
-    async updateReply(category: string, dish: string, orderID: number, outerID: number, commentOpt:{comment?: string, editTime: number}) {
-        const comments = await this.getCommentJson(category, dish);
-        // const order = parseInt(orderID);
-        const comment = comments[outerID].replies[orderID];
-        Object.assign(comment, commentOpt);
-        await jsonfile.writeFile(path.join(__dirname, `../commentsJson/${category}_${dish}_comment.json`), comments);
-        return comments;
-    }
-
-    async deleteComments(category: string, dish: string, orderID: number){
-        const comments = await this.getCommentJson(category, dish)
-        // const order = parseInt(orderID);
-        // console.log(orderID);
-        comments.splice(orderID, 1)
-        await jsonfile.writeFile(path.join(__dirname, `../commentsJson/${category}_${dish}_comment.json`), comments);
-        return comments;
-    }
-
-    // async createReply(category: string, dish: string, username: string, userIcon: string, comment: string, orderID: number, editTime: string) {
-    //     const dataset = await this.getCommentJson(category, dish);
-    //     const userdata = {
-    //         username,
-    //         userIcon,
-    //         comment,
-    //         orderID,
-    //         editTime
-    //     };
-    //     dataset[orderID].replies.unshift(userdata);
-    //     await jsonfile.writeFile(path.join(__dirname, `../commentsJson/${category}_${dish}_comment.json`),dataset);
-    //     return userdata;
-    // }
-    async createReply(category: string, dish: string, username: string, userIcon: string, comment: string, orderID: number, editTime: string, outerID?: number) {
+    //work work
+    async updateComment(category: string, dish: string, orderID: number, commentOpt:{comment?: string, editTime: number}) {
         const dataset = await this.getCommentJson(category, dish);
-        let referring = [];
-        // const referTemp = []
-
-        if (outerID){
-            // console.log(dataset[outerID].re)
-            for (let refer of dataset[outerID].replies[orderID].referring){
-                referring.push(refer);
+        const idx = await this.checkID(category, dish, orderID);
+        const comments = dataset.comments
+        if (idx){
+            if (idx.length ===1){
+                Object.assign(comments[idx[0]], commentOpt);
+            }else if (idx.length ===2){
+                console.log(comments[idx[0]])
+                Object.assign(comments[idx[0]].replies[idx[1]], commentOpt);
             }
         }
-        if (outerID){
-            referring.push({username: dataset[outerID].replies[orderID].username, 
-                        userIcon: dataset[outerID].replies[orderID].userIcon,
-                        comment: dataset[outerID].replies[orderID].comment,
-                        editTime: dataset[outerID].replies[orderID].editTime,
-                        orderID: dataset[outerID].replies[orderID].orderID})
-        }else {
-            referring.push({username: dataset[orderID].username, 
-                userIcon: dataset[orderID].userIcon,
-                comment: dataset[orderID].comment,
-                editTime: dataset[orderID].editTime,
-                orderID: dataset[orderID].orderID})
+
+        await jsonfile.writeFile(path.join(__dirname, `../commentsJson/${category}_${dish}_comment.json`), dataset);
+        return dataset.comments;
+    }
+
+    //useless not work
+    async updateReply(category: string, dish: string, orderID: number, outerID: number, commentOpt:{comment?: string, editTime: number}) {
+        const comments = await this.getCommentJson(category, dish);
+        const comment = comments[outerID].replies[orderID];
+        Object.assign(comment, commentOpt)
+        await jsonfile.writeFile(path.join(__dirname, `../commentsJson/${category}_${dish}_comment.json`), comments);
+        return comments;
+    }
+
+    //workwork
+    async checkID(category: string, dish: string, orderID:number){
+        const dataset = await this.getCommentJson(category, dish)
+        let commentIndex = dataset.comments.findIndex((comment:any) => (comment.id==orderID));
+        console.log(commentIndex)
+        if (commentIndex !== -1){
+            return [commentIndex];
         }
+        
+        for (const comment in dataset.comments){
+            const replies = dataset.comments[comment].replies
+            if (replies.length !== 0 ){
+                console.log(replies)
+                console.log(replies.length)
+                commentIndex = replies.findIndex((comment:any) => (comment.id==orderID));
+                console.log(commentIndex)
+                if (commentIndex>=0){
+                    console.log(commentIndex)
+                    return [comment, commentIndex];
+                }
+            }
+        }
+        return null;
+
+    }
+    //work work
+    async deleteComments(category: string, dish: string, orderID: number){
+        const dataset = await this.getCommentJson(category, dish)
+        // const order = parseInt(orderID);
+        // console.log(orderID);
+        const idx = await this.checkID(category, dish, orderID);
+        const comments = dataset.comments
+        console.log(idx)
+        if (idx){
+            if (idx.length ===1){
+                comments.splice(idx[0], 1)
+            }else if (idx.length ===2){
+                console.log(comments[idx[0]])
+                comments[idx[0]].replies.splice(idx[1], 1)
+            }
+        }
+        
+        
+        await jsonfile.writeFile(path.join(__dirname, `../commentsJson/${category}_${dish}_comment.json`), dataset);
+        return dataset.comments;
+    }
+
+    //work work
+    async createReply(category: string, dish: string, username: string, userIcon: string, comment: string, orderID: number, editTime: string) {
+        const dataset = await this.getCommentJson(category, dish);
+        const comments = dataset.comments;
+        let referring:number[] = [];
+        let orginalComment;
+        const idx = await this.checkID(category, dish, orderID);
+
+        if (idx){
+            if (idx.length ===1){
+                orginalComment = comments[idx[0]]
+            }else if (idx.length ===2){
+                orginalComment = comments[idx[0]].replies[idx[1]];
+            }
+        }
+        if (orginalComment.referring.length>0){
+            referring = orginalComment.referring.concat(referring);
+        }
+
+        referring.push(orginalComment.id)
         const userdata = {
+            id: dataset.nextid++,
             username,
             userIcon,
             comment,
-            orderID,
-            referring,
+            replies : [],
+            referring: referring,
             editTime
-        };
-        dataset[outerID? outerID:orderID].replies.push(userdata);
-        // dataset[outerID? outerID:orderID].referring.unshift(referring);
-        // console.log(dataset[0].referring)
-
+        }
+        if (idx){
+            comments[idx[0]].replies.push(userdata);
+        }
+        // dataset.comments.unshift(userdata);
         await jsonfile.writeFile(path.join(__dirname, `../commentsJson/${category}_${dish}_comment.json`),dataset);
-        return ;
+        
+        return userdata;
     }
 
-    async deleteReplies(category: string, dish: string, orderID: number, outerID: number){
-        const comments = await this.getCommentJson(category, dish)
-        // const order = parseInt(orderID);
-        // console.log(outerID)
-        // console.log(comments)
-        const comment = comments[outerID].replies;
-        // console.log(comment[orderID])
-        // console.log(orderID);
-        comment.splice(orderID, 1)
+    //work but useless
+    async deleteReplies(category: string, dish: string, orderID: number, outerID?: number){
+        const dataset = await this.getCommentJson(category, dish)
+        const commentIdx = dataset.comments.findIndex((comment:any) =>comment.id == orderID);
+        dataset.comments.splice(commentIdx, 1)
         
-        await jsonfile.writeFile(path.join(__dirname, `../commentsJson/${category}_${dish}_comment.json`), comments);
-        return comments;
+        await jsonfile.writeFile(path.join(__dirname, `../commentsJson/${category}_${dish}_comment.json`), dataset);
+        return dataset.comments;
     }
 }
