@@ -1,7 +1,10 @@
 import express from "express";
 import bodyParser from "body-parser";
 import expressSession from "express-session";
-import { isLoggedInHtml, isLoggedInApi } from "./guards";
+import { isLoggedInHtml } from "./guards";
+import {CommentRouter} from "./routers/CommentRouter"
+import {CommentService} from "./services/CommentService"
+
 import path from 'path'
 
 const app = express();
@@ -34,17 +37,17 @@ app.use(grant({
 
 import { UserService } from './services/UserService';
 import { UserRouter } from './routers/UserRouter';
-import { TestingRouter } from './routers/TestingRouter';
+
 
 const userService = new UserService();
 const userRouter = new UserRouter(userService);
-const testingRouter = new TestingRouter();
-
 const API_VERSION = "/api/v1"
-app.use("/users", userRouter.router());
-app.use(`${API_VERSION}/testing`, isLoggedInApi, testingRouter.router());
+const commentService = new CommentService();
+const commentRouter = new CommentRouter(commentService);
 
+app.use(`${API_VERSION}/comment`, commentRouter.router());
 app.use(express.static(path.join(__dirname, './public')));
+app.use("/users", userRouter.router());
 app.use(isLoggedInHtml, express.static(path.join(__dirname, './private')));
 
 const PORT = 8080;
