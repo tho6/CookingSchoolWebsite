@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>上傳</title>
+  <title>上傳菜式</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -31,7 +31,7 @@
     <form id="addMessageForm" action="/videos" enctype="multipart/form-data" method="POST">
     <h1>上傳菜式</h1>
     <div class="form-group" id="addMessageForm" action="/videos" enctype="multipart/form-data" method="POST">
-      <textarea class="form-control" name="topic" rows="2">輸入標題</textarea>
+      <textarea class="form-control" name="topic" rows="2" placeholder="輸入標題"></textarea>
     </div>
     <div class="form-group">
       <label for="exampleFormControlSelect1">選擇菜式種類</label>
@@ -47,10 +47,10 @@
       </select>
     </div>
     <div class="form-group">
-      <textarea class="form-control" name="dish" rows="2">輸入菜式名稱</textarea>
+      <textarea class="form-control" name="dish" rows="2" placeholder="輸入菜式名稱"></textarea>
     </div>
     <div class="form-group">
-      <textarea class="form-control" name="material" rows="4">輸入食材</textarea>
+      <textarea class="form-control" name="material" rows="4" placeholder="輸入食材"></textarea>
     </div>
     <div class="custom-file">
       <input type="file" class="custom-file-input" lang="zh-TW" name="video" accept="video/*">
