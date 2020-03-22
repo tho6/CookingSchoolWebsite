@@ -19,7 +19,6 @@ const upload = multer({ storage: storage })
 
 const app = express();
 app.use(/* 放加強器 */ express.static(path.join(__dirname, 'public')))
-app.use(/* 放加強器 */ express.static(path.join(__dirname, 'uploads')))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
@@ -63,14 +62,14 @@ const commentRouter = new CommentRouter(commentService);
 
 const videoService = new VideoService()
 const videoRouter = new VideoRouter(videoService,upload)
-app.use(videoRouter.router())
 
-app.use(`${API_VERSION}/comment`, commentRouter.router());
+
 
 app.use("/users", userRouter.router());
 app.use(isLoggedInHtml, express.static(path.join(__dirname, './private')));
-
-
+app.use(`${API_VERSION}/comment`, commentRouter.router());
+app.use(/* 放加強器 */ express.static(path.join(__dirname, 'uploads')))
+app.use(videoRouter.router())
 
 const PORT = 8080;
 app.listen(PORT, () => {

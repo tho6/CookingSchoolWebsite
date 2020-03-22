@@ -113,6 +113,7 @@ export class UserRouter {
     //   console.log("search user")
     //   return res.redirect("/");
     // }
+    console.log(result)
     if (!user) {
       console.log("first time")
       tmpUserId = await this.userService.createUser(result.email, "password");

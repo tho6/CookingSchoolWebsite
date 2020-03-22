@@ -6,6 +6,7 @@ const category = currentPath[0];
 const dish = currentPath[1];
 console.log(category, dish);
 let username = '';
+let firstTime = true;
 
 let loggedIn = false;
 
@@ -17,6 +18,7 @@ async function getCurrentUser() {
     if (jsonRes.username) {
         username = jsonRes.username.split('@')[0]
         loggedIn = true
+        console.log(firstTime)
         console.log(loggedIn)
     } else {
         loggedIn = false
@@ -31,6 +33,7 @@ async function getCurrentUser() {
 
 function afterLogIn() {
     if (loggedIn) {
+        firstTime = false;
         const loginbtn = document.querySelector('#login')
         loginbtn.setAttribute('href', '');
         loginbtn.addEventListener('click', async function () { await fetch('/users/logout') }, { once: true });
@@ -98,7 +101,7 @@ async function readComment(id = null) {
     for (let i = 0; i < headComments.length; i++) {
         // let commentHTML = '<div class = "comment-section">';
         if (i == 0) {
-            let commentBtnHTML = document.querySelector('.post-comment-btn.text-right')
+            let commentBtnHTML = document.querySelector('.post-comment-btn')
             // console.log(commentBtnHTML);
             commentBtnHTML.innerHTML = '';
             commentBtnHTML.innerHTML = '<button type="button" class="btn btn-primary" id="post-comment-btn">留言</button>';
@@ -451,8 +454,10 @@ function showExisting(id) {
 }
 
 async function main(id) {
-    await getCurrentUser()
-    afterLogIn();
+    await getCurrentUser();
+    if (firstTime){
+        afterLogIn();
+    }
     await readComment();
     editComment();
     postComment();
