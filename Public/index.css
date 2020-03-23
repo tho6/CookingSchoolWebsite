@@ -39,6 +39,10 @@ body {
     padding-top: 5px;
 
 }
+.dropdown-menu {
+    max-height: 200px;
+    overflow: scroll;
+}
 /* -- Landing Page -- */
 
 
