@@ -3,7 +3,7 @@ let videoHTML = []
   readVideos(1);  
   
   async function readVideos(con){
-    alert(con)
+    
     const fetchRes = await fetch('/videos')
     const videos = await fetchRes.json()
     document.querySelector('#videoPlayerDiv').innerHTML = '';
