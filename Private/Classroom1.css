@@ -236,6 +236,12 @@ video{
     
 }
 
+.edited.d-inline-block {
+    margin-right: 8px;
+    margin-top: 5px;
+    position: relative;
+    bottom: -3px;
+}
 .comment-footer img{
     margin: 5px;
     height: auto; 
