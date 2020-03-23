@@ -11,7 +11,7 @@ export class CommentRouter {
 
     router() {
         const router = express.Router();
-        const upload_path = "/:category/:dish";
+        const upload_path = "/:category/:dish"; // :category is variable refer to Js file ${category}
         router.get(upload_path, this.getComment);
         router.patch(upload_path, this.updateComment);
         router.delete(upload_path, this.deleteComment);
@@ -35,7 +35,7 @@ export class CommentRouter {
                 res.status(401).json({ message: 'Unauthorized😢' });
                 return;
             }
-            const dataset = await this.commentService.createComment(req.params.category, req.params.dish, username, userIcon, comment, editTime);
+            //const dataset = await this.commentService.createComment(req.params.category, req.params.dish, username, userIcon, comment, editTime);
             res.json({ message: 'Success😚' });
 
         } catch (err) {
