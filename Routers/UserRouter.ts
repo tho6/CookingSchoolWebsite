@@ -27,14 +27,13 @@ export class UserRouter {
 
   createUser = async (req: Request, res: Response) => {
     try {
-      const { username, password } = req.body;
+      const { username, password, picture } = req.body;
       const user = await this.userService.getUserByUsername(username);
       if (user) {
         res.status(400).json({ message: "Duplicate" });
         return;
       }
-
-      const userId = await this.userService.createUser(username, password);
+      const userId = await this.userService.createUser(username, password, picture);
       res.json({ user_id: userId });
     } catch (err) {
       res.status(500).json({ message: "Internal server error" });
@@ -53,11 +52,6 @@ export class UserRouter {
     const match = await checkPassword(password, user.password);
     if (match) {
       console.log("step 2");
-      // if (req.session) {
-      // req.session.user = {
-      //   id: user.id
-      // };
-      // }
       if (req.session) {
         req.session.username = "abcde";
       }
@@ -116,18 +110,12 @@ export class UserRouter {
     console.log(result) // full profile
     if (!user) {
       console.log("first time")
-      tmpUserId = await this.userService.createUser(result.email, "password");
+      tmpUserId = await this.userService.createUser(result.email, "password", result.picture);
     } else {
       console.log("second time")
       tmpUserId = user.id;
     }
     if (req.session) {
-      // req.session.user = {
-      //   id: tmpUserId
-      // };
-
-      //below try admin
-
       if (user?.username === 'chingching6@gmail.com') {
         req.session.username = { 'username': user?.username, 'isAdmin': true };
         // res.json({ role: 'admin' })
@@ -139,22 +127,10 @@ export class UserRouter {
       }
     };
 
-    // below try admin
-
     console.log(req.session?.username) // get session user id
 
     // req.session.username = "abcde"; // test
 
     return res.redirect("/");
   }
-
-
-  // if (req.session) {
-  //   console.log(req.session?.grant) // tried to get google profile
-  // };
-
-  //
-
-  //
-
 }

@@ -1,5 +1,5 @@
 {
-    "next_id": 7,
+    "next_id": 10,
     "users": [
         {
             "id": 1,
@@ -22,14 +22,15 @@
             "password": "$2a$10$MhhkZ7QKo7WOCxRXdDlu4uWZ48cmpWkcuXLVjkY.5I9yj0E2hhMo."
         },
         {
-            "id": 5,
-            "username": "chingchingho@gmail.com",
-            "password": "$2a$10$TBDHTAPHK6hMsJAcXmu73u3xesCngzCwGXDRT5Kb.o7g6sF1QFLGq"
-        },
-        {
             "id": 6,
             "username": "logbechan@gmail.com",
             "password": "$2a$10$ikU4s4zvbvbClH8gF908UOJoP5tBAuSnliwUK3f2FvxqNjZHZGSim"
+        },
+        {
+            "id": 9,
+            "username": "chingchingho@gmail.com",
+            "password": "$2a$10$mRqiJ1.osasS3OORw4EoMenPfFj7K6qNALO0TzpWSiWVk8BeXBpsC",
+            "picture": "https://lh6.googleusercontent.com/-rC1Uq-WPuvI/AAAAAAAAAAI/AAAAAAAAAAA/AKF05nDjiNy3YHtGkof_vXxCbYcVTZxd-Q/photo.jpg"
         }
     ]
 }
