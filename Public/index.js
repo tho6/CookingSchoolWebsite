@@ -18,6 +18,14 @@ async function getCurrentUser() {
 //     // removeVideo();
 //   }
 }
+$(function(){
+    $('.dropdown-menu').hover(function() {
+        $(this).addClass('show');
+    },
+    function() {
+        $(this).removeClass('show');
+    });
+});
 
 // // below try admin
 // let isAdmin = false;

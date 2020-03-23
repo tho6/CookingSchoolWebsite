@@ -16,7 +16,7 @@
   
   <div>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a href="/" class="navbar-brand"><img src="homeImg/brand2.png" alt=""></a>
+      <a href="/" class="navbar-brand"><img src="/homeImg/brand2.png" alt=""></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -26,9 +26,24 @@
           <li class="nav-item">
             <a href="/" class="nav-link">首頁</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="/#categories" class="nav-link">菜式</a>
-          </li>
+          </li> -->
+
+          <li class="nav-item dropdown">
+            <a href="#" data-toggle="dropdown" id="navbarDropdownMenuLink" class="nav-link dropdown-toggle">菜式</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="#">中式</a>
+                <a class="dropdown-item" href="#">意大利菜</a>
+                <a class="dropdown-item" href="#">法國菜</a>
+                <a class="dropdown-item" href="#">印度菜</a>
+                <a class="dropdown-item" href="#">泰國菜</a>
+                <a class="dropdown-item" href="#">越南菜</a>
+                <a class="dropdown-item" href="#">日本菜</a>
+                <a class="dropdown-item" href="#">韓國料理</a>
+
+            </div>
+        </li>
 
           <li class="nav-item">
             <a href="/#contact" class="nav-link">聯絡我們</a>
@@ -88,7 +103,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
-
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/core.js" charset="UTF-8"></script> -->
   <!-- <script src="../../Public/Video.js"></script>   -->
   <script src="../message.js" charset="UTF-8"></script>
 </body>

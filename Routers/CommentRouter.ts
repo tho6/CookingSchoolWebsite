@@ -24,8 +24,12 @@ export class CommentRouter {
         try {
             const username = req.session?.username.username.split('@')[0];
             console.log(username);
-            const userIcon = "Hi.jpg";
+            const userIcon = req.session?.username.picture;
             const comment = req.body.content.comment;
+            console.log(userIcon)
+            console.log(req.session)
+
+
             const editTime = new Date().toLocaleString();
             if (comment == '') {
                 res.status(400).json({ message: 'The comment is empty~😢' });
@@ -35,7 +39,7 @@ export class CommentRouter {
                 res.status(401).json({ message: 'Unauthorized😢' });
                 return;
             }
-            //const dataset = await this.commentService.createComment(req.params.category, req.params.dish, username, userIcon, comment, editTime);
+            const dataset = await this.commentService.createComment(req.params.category, req.params.dish, username, userIcon, comment, editTime);
             res.json({ message: 'Success😚' });
 
         } catch (err) {
@@ -104,10 +108,11 @@ export class CommentRouter {
     createReply = async (req: Request, res: Response) => {
         try {
             const username = req.session?.username.username.split('@')[0];
-            const userIcon = "Hi.jpg"
+            const userIcon = req.session?.username.picture;
             const comment = req.body.content.comment;
             const orderID = req.body.content.orderID;
             const editTime = new Date().toLocaleString();
+            console.log(userIcon)
             if (!username) {
                 res.status(401).json({ message: 'Unauthorized😢' });
                 return;
