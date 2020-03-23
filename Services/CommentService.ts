@@ -31,11 +31,14 @@ export class CommentService{
     }
 
     //work work
-    async updateComment(category: string, dish: string, orderID: number, commentOpt:{comment?: string, editTime: number}, username: string) {
+    async updateComment(category: string, dish: string, orderID: number, commentOpt:{comment: string, editTime: number, edited?:boolean}, username: string) {
         const dataset = await this.getCommentJson(category, dish);
         const idx = await this.checkID(category, dish, orderID);
         const comments = dataset.comments
         const newUsername = username.split('@')[0];
+        commentOpt.edited = true;
+        console.log(commentOpt)
+        console.log('hi')
         if (idx){
             if (idx.length ===1){
                 if (comments[idx[0]].username !== newUsername){
