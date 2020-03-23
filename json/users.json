@@ -1,5 +1,11 @@
 {
-    "next_id": 1,
+    "next_id": 2,
     "users": [
+        {
+            "id": 1,
+            "username": "chingching6@gmail.com",
+            "password": "$2a$10$c4iSH5CX0.r5xRoonGsogO6NXbpP1BmvQRv1JQTcRPaybcnnkYLU2",
+            "picture": "https://lh3.googleusercontent.com/a-/AOh14GjlPiDGPYTjYq-tesPi5OaOL05x_MpudrAM7M6RVA"
+        }
     ]
 }
