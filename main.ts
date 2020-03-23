@@ -1,10 +1,12 @@
 import express from "express";
 import bodyParser from "body-parser";
 import expressSession from "express-session";
-import {isLoggedInHtml } from "./guards";
-import {CommentRouter} from "./routers/CommentRouter"
-import {CommentService} from "./services/CommentService"
+import { isLoggedInHtml } from "./guards";
+import { CommentRouter } from "./routers/CommentRouter"
+import { CommentService } from "./services/CommentService"
 import path from 'path'
+// import jsonfile from 'jsonfile'
+
 import multer from 'multer' // auto change the photo filename and put photo file to upload folder
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -50,8 +52,8 @@ app.use(grant({
 
 import { UserService } from './services/UserService';
 import { UserRouter } from './routers/UserRouter';
-import {VideoService} from './Services/videoService'
-import {VideoRouter} from './Routers/videoRouter'
+import { VideoService } from './Services/videoService'
+import { VideoRouter } from './Routers/videoRouter'
 
 
 const userService = new UserService();
@@ -61,7 +63,7 @@ const commentService = new CommentService();
 const commentRouter = new CommentRouter(commentService);
 
 const videoService = new VideoService()
-const videoRouter = new VideoRouter(videoService,upload)
+const videoRouter = new VideoRouter(videoService, upload)
 
 
 
@@ -71,7 +73,29 @@ app.use(`${API_VERSION}/comment`, commentRouter.router());
 app.use(/* 放加強器 */ express.static(path.join(__dirname, 'uploads')))
 app.use(videoRouter.router())
 
-const PORT = 8080;
-app.listen(PORT, () => {
-  console.log(`Listening at http://localhost:${PORT}`);
-});
+
+
+// app.delete('/videos/:id', async (req, res) => {
+//     if (req.session.username === 'chingching6@gmail.com') {
+//       res.json({ success: true, message: 'Is Admin' })
+//     return;
+//   }
+  
+//   const videos = await jsonfile.readFile('/videos.json')
+//   const { id } = req.params
+//   videos.splice(id, 1)
+
+//   await jsonfile.writeFile('/videos.json', videos);
+
+//   res.json({ success: true })
+//   // } catch (e) {
+//   //   console.error(e);
+//   //   res.status(500).json({ success: false });
+//   // }
+
+//   above try admin
+
+  const PORT = 8080;
+  app.listen(PORT, () => {
+    console.log(`Listening at http://localhost:${PORT}`);
+  });

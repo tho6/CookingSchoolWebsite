@@ -12,9 +12,24 @@ async function getCurrentUser() {
         loggedIn = false
         console.log(loggedIn)
     }
-
+//     // below try admin
+//   if (result.role === 'admin') {
+//     isAdmin = true;
+//     // removeVideo();
+//   }
 }
 
+// // below try admin
+// let isAdmin = false;
+
+// const result = await resFetch.json();
+// if (result.success) {
+//   isAdmin = true;
+//   removeVideo();
+// } else {
+//   alert('Admin only');
+// }
+// above try admin
 
 // const jsonRes = getCurrentUser();
 
@@ -37,6 +52,10 @@ function afterLogIn(){
 // function redirCategories{
     
 // }
+
+
+
+
 
 //
 async function main(){

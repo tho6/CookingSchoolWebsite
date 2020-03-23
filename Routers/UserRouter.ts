@@ -14,13 +14,13 @@ export class UserRouter {
     router.post("/login", this.login);
     router.get("/logout", this.logout);
     router.get("/getCurrentUser", this.getCurrentUser);
-    
+
     return router;
   }
 
   checkSession = (req: Request, res: Response) => {
     if (req.session) {
-      console.log(req.session);
+      //console.log(req.session);
     }
     res.send("show test"); // change
   }
@@ -44,15 +44,15 @@ export class UserRouter {
   login = async (req: Request, res: Response) => { // remove later
     const { username, password } = req.body;
     const user = await this.userService.getUserByUsername(username);
-    console.log("step 1");
-    console.log(user);
+    //console.log("step 1");
+    //console.log(user);
     if (!user) {
-      console.log("1A");
+      //console.log("1A");
       return res.status(401).redirect("/login.html?error=Incorrect+Username");
     }
     const match = await checkPassword(password, user.password);
     if (match) {
-      console.log("step 2");
+      //console.log("step 2");
       // if (req.session) {
       // req.session.user = {
       //   id: user.id
@@ -63,7 +63,7 @@ export class UserRouter {
       }
       return res.redirect("/");
     } else {
-      console.log("2A");
+      //console.log("2A");
       return res.status(401).redirect("/login.html?error=Incorrect+Username");
     }
   };
@@ -72,22 +72,22 @@ export class UserRouter {
     if (req.session) {
       delete req.session.username;
     }
-    console.log("3A");
+    //console.log("3A");
     res.redirect("/");
   };
 
   getCurrentUser = (req: express.Request, res: express.Response) => {
-    if (req.session?.username){
+    if (req.session?.username) {
       console.log(req.session.username)
       console.log("NEW")
       res.send(req.session.username)
       return
     }
-    res.send({'username':false})
+    res.send({ 'username': false })
   }
-  
+
   loginGoogle = async (req: express.Request, res: express.Response) => {
-    console.log("in google?")
+    //console.log("in google?")
     const accessToken = req.session?.grant.response.access_token;
     const fetchRes = await fetch(
       "https://www.googleapis.com/oauth2/v2/userinfo",
@@ -113,34 +113,48 @@ export class UserRouter {
     //   console.log("search user")
     //   return res.redirect("/");
     // }
-    console.log(result)
+    console.log(result) // full profile
     if (!user) {
-      console.log("first time")
+      //console.log("first time")
       tmpUserId = await this.userService.createUser(result.email, "password");
     } else {
-      console.log("second time")
+      //console.log("second time")
       tmpUserId = user.id;
     }
     if (req.session) {
       // req.session.user = {
       //   id: tmpUserId
       // };
-      req.session.username = {'username':user?.username};
-      console.log(req.session.username) // get session user id
 
-      // req.session.username = "abcde"; // test
+      //below try admin
 
-      return res.redirect("/");
-    }
+      if (user?.username === 'chingching6@gmail.com') {
+        req.session.username = { 'username': user?.username, 'isAdmin': true };
+        // res.json({ role: 'admin' })
+        console.log('admin');
+      } else {
+        req.session.username = { 'username': user?.username, 'isAdmin': false };
+        // res.json({ role: 'guest' })
+        console.log('guest');
+      }
+    };
 
+    // below try admin
 
-    // if (req.session) {
-    //   console.log(req.session?.grant) // tried to get google profile
-    // };
+    console.log(req.session?.username) // get session user id
 
-    //
+    // req.session.username = "abcde"; // test
 
-    //
-
+    return res.redirect("/");
   }
+
+
+  // if (req.session) {
+  //   console.log(req.session?.grant) // tried to get google profile
+  // };
+
+  //
+
+  //
+
 }
