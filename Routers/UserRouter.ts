@@ -14,7 +14,7 @@ export class UserRouter {
     router.post("/login", this.login);
     router.get("/logout", this.logout);
     router.get("/getCurrentUser", this.getCurrentUser);
-    
+
     return router;
   }
 
@@ -77,15 +77,15 @@ export class UserRouter {
   };
 
   getCurrentUser = (req: express.Request, res: express.Response) => {
-    if (req.session?.username){
-      //console.log(req.session.username)
-      //console.log("NEW")
+    if (req.session?.username) {
+      console.log(req.session.username)
+      console.log("NEW")
       res.send(req.session.username)
       return
     }
-    res.send({'username':false})
+    res.send({ 'username': false })
   }
-  
+
   loginGoogle = async (req: express.Request, res: express.Response) => {
     //console.log("in google?")
     const accessToken = req.session?.grant.response.access_token;
@@ -113,6 +113,7 @@ export class UserRouter {
     //   console.log("search user")
     //   return res.redirect("/");
     // }
+    console.log(result) // full profile
     if (!user) {
       //console.log("first time")
       tmpUserId = await this.userService.createUser(result.email, "password");
@@ -124,22 +125,36 @@ export class UserRouter {
       // req.session.user = {
       //   id: tmpUserId
       // };
-      req.session.username = {'username':user?.username};
-      //console.log(req.session.username) // get session user id
 
-      // req.session.username = "abcde"; // test
+      //below try admin
 
-      return res.redirect("/");
-    }
+      if (user?.username === 'chingching6@gmail.com') {
+        req.session.username = { 'username': user?.username, 'isAdmin': true };
+        // res.json({ role: 'admin' })
+        console.log('admin');
+      } else {
+        req.session.username = { 'username': user?.username, 'isAdmin': false };
+        // res.json({ role: 'guest' })
+        console.log('guest');
+      }
+    };
 
+    // below try admin
 
-    // if (req.session) {
-    //   console.log(req.session?.grant) // tried to get google profile
-    // };
+    console.log(req.session?.username) // get session user id
 
-    //
+    // req.session.username = "abcde"; // test
 
-    //
-
+    return res.redirect("/");
   }
+
+
+  // if (req.session) {
+  //   console.log(req.session?.grant) // tried to get google profile
+  // };
+
+  //
+
+  //
+
 }

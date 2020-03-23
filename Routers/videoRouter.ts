@@ -32,6 +32,7 @@ export class VideoRouter{
               return
             }
             await this.videoService.postVideo(req.body.category,req.body.dish,req.file)
+            console.log(req.session)
             res.json({ success: true })
         
           } catch (e) {

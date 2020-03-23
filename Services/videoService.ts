@@ -8,12 +8,12 @@ export class VideoService{
         this.videosJsonPath = path.join(__dirname, "../videos.json")
     }
 
-    public async getVideos(){
+    public async getVideos() {
         const videos = await jsonfile.readFile(this.videosJsonPath); //from json file get something
         return videos
     }
-    
-    public async postVideo(category:string,dish:string,file:Express.Multer.File){
+
+    public async postVideo(category: string, dish: string, file: Express.Multer.File) {
         const videos = await this.getVideos()
             videos.push({
               Category: category,
@@ -32,11 +32,11 @@ export class VideoService{
             return videos
     }
 
-    public async removeVideo(id:number){
-    const videos = await jsonfile.readFile(this.videosJsonPath)
+    public async removeVideo(id: number) {
+        const videos = await jsonfile.readFile(this.videosJsonPath)
         videos.splice(id, 1)
         await jsonfile.writeFile(this.videosJsonPath, videos)
         return videos
     }
-    
+
 }

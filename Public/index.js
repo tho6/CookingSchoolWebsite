@@ -12,9 +12,24 @@ async function getCurrentUser() {
         loggedIn = false
         console.log(loggedIn)
     }
-
+//     // below try admin
+//   if (result.role === 'admin') {
+//     isAdmin = true;
+//     // removeVideo();
+//   }
 }
 
+// // below try admin
+// let isAdmin = false;
+
+// const result = await resFetch.json();
+// if (result.success) {
+//   isAdmin = true;
+//   removeVideo();
+// } else {
+//   alert('Admin only');
+// }
+// above try admin
 
 // const jsonRes = getCurrentUser();
 
@@ -30,12 +45,17 @@ function afterLogIn(){
                             <a href="upload.html" id="upload" class="nav-link btn btn-outline-light btn-lg">上傳</a>
                         </li>`
         loginbtn.parentNode.insertAdjacentHTML('beforebegin', upload)
+        console.log('wprk')
     }
 }
 
 // function redirCategories{
     
 // }
+
+
+
+
 
 //
 async function main(){

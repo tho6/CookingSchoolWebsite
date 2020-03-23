@@ -34,8 +34,8 @@
   },
   "nodemonConfig": {
     "ignore": [
-      "commentsJson/*"
-    ]
+      "commentsJson/*",
+       "videos.json"]
   },
   "repository": {
     "type": "git",
