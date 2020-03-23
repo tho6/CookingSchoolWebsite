@@ -1,36 +1,5 @@
 {
-    "next_id": 10,
+    "next_id": 1,
     "users": [
-        {
-            "id": 1,
-            "username": "test@gmail.com",
-            "password": "$2a$10$ABUMyrEcCiHBib8ayJtST..pI/xVUsXi3xcqOXXCLrlGUsMDe74p2"
-        },
-        {
-            "id": 2,
-            "username": "test2@gmail.com",
-            "password": "$2a$10$cTCivQHQdotxdUsmaC3kCeQzM/Z28JwAfqAkYl.g3NIOnuSycrrs6"
-        },
-        {
-            "id": 3,
-            "username": "chingching6@gmail.com",
-            "password": "$2a$10$CJC0uVh./SVM1AQ6d6E5B.nzVG1Cxah6CBPN3BcKB8JE2gB7SZ.pm"
-        },
-        {
-            "id": 4,
-            "username": "ivan.cheungckn@gmail.com",
-            "password": "$2a$10$MhhkZ7QKo7WOCxRXdDlu4uWZ48cmpWkcuXLVjkY.5I9yj0E2hhMo."
-        },
-        {
-            "id": 6,
-            "username": "logbechan@gmail.com",
-            "password": "$2a$10$ikU4s4zvbvbClH8gF908UOJoP5tBAuSnliwUK3f2FvxqNjZHZGSim"
-        },
-        {
-            "id": 9,
-            "username": "chingchingho@gmail.com",
-            "password": "$2a$10$mRqiJ1.osasS3OORw4EoMenPfFj7K6qNALO0TzpWSiWVk8BeXBpsC",
-            "picture": "https://lh6.googleusercontent.com/-rC1Uq-WPuvI/AAAAAAAAAAI/AAAAAAAAAAA/AKF05nDjiNy3YHtGkof_vXxCbYcVTZxd-Q/photo.jpg"
-        }
     ]
 }

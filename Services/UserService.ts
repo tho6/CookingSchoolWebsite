@@ -37,6 +37,6 @@ export class UserService {
     }
     dataset.users.push(user);
     await jsonfile.writeFile(this.userJsonPath, dataset);
-    return user.id;
+    return user;
   }
 }
