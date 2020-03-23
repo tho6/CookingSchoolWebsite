@@ -45,7 +45,7 @@ function afterLogIn(){
                             <a href="upload.html" id="upload" class="nav-link btn btn-outline-light btn-lg">上傳</a>
                         </li>`
         loginbtn.parentNode.insertAdjacentHTML('beforebegin', upload)
-        console.log('wprk')
+        console.log('work')
     }
 }
 
