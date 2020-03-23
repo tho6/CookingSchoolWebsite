@@ -51,16 +51,12 @@ export class UserRouter {
     }
     const match = await checkPassword(password, user.password);
     if (match) {
-<<<<<<< HEAD
-      console.log("step 2");
-=======
       //console.log("step 2");
       // if (req.session) {
       // req.session.user = {
       //   id: user.id
       // };
       // }
->>>>>>> d16f341d2a50abd364ef11c1bc4342c0b2a3af19
       if (req.session) {
         req.session.username = "abcde";
       }
@@ -118,13 +114,8 @@ export class UserRouter {
     // }
     console.log(result) // full profile
     if (!user) {
-<<<<<<< HEAD
       console.log("first time")
       tmpUserId = await this.userService.createUser(result.email, "password", result.picture);
-=======
-      //console.log("first time")
-      tmpUserId = await this.userService.createUser(result.email, "password");
->>>>>>> d16f341d2a50abd364ef11c1bc4342c0b2a3af19
     } else {
       //console.log("second time")
       tmpUserId = user.id;
