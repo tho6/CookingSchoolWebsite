@@ -9,7 +9,7 @@ export class CommentService{
     //work but seems useless
     async getSpecificComment(category: string, dish: string, checkID:number) {
         let {comments} = await this.getCommentJson(category, dish)
-        
+        //console.log({comments})
         const comment = comments.find((Comment:any) => Comment.id==checkID) 
         return comment;
     }
@@ -31,11 +31,14 @@ export class CommentService{
     }
 
     //work work
-    async updateComment(category: string, dish: string, orderID: number, commentOpt:{comment?: string, editTime: number}, username: string) {
+    async updateComment(category: string, dish: string, orderID: number, commentOpt:{comment: string, editTime: number, edited?:boolean}, username: string) {
         const dataset = await this.getCommentJson(category, dish);
         const idx = await this.checkID(category, dish, orderID);
         const comments = dataset.comments
         const newUsername = username.split('@')[0];
+        commentOpt.edited = true;
+        console.log(commentOpt)
+        console.log('hi')
         if (idx){
             if (idx.length ===1){
                 if (comments[idx[0]].username !== newUsername){
@@ -67,7 +70,7 @@ export class CommentService{
     async checkID(category: string, dish: string, orderID:number){
         const dataset = await this.getCommentJson(category, dish)
         let commentIndex = dataset.comments.findIndex((comment:any) => (comment.id==orderID));
-        console.log(commentIndex)
+        // console.log(commentIndex)
         if (commentIndex !== -1){
             return [commentIndex];
         }
@@ -75,12 +78,12 @@ export class CommentService{
         for (const comment in dataset.comments){
             const replies = dataset.comments[comment].replies
             if (replies.length !== 0 ){
-                console.log(replies)
-                console.log(replies.length)
+                // console.log(replies)
+                // console.log(replies.length)
                 commentIndex = replies.findIndex((comment:any) => (comment.id==orderID));
                 console.log(commentIndex)
                 if (commentIndex>=0){
-                    console.log(commentIndex)
+                    // console.log(commentIndex)
                     return [comment, commentIndex];
                 }
             }

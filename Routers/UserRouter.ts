@@ -20,7 +20,7 @@ export class UserRouter {
 
   checkSession = (req: Request, res: Response) => {
     if (req.session) {
-      console.log(req.session);
+      //console.log(req.session);
     }
     res.send("show test"); // change
   }
@@ -43,21 +43,30 @@ export class UserRouter {
   login = async (req: Request, res: Response) => { // remove later
     const { username, password } = req.body;
     const user = await this.userService.getUserByUsername(username);
-    console.log("step 1");
-    console.log(user);
+    //console.log("step 1");
+    //console.log(user);
     if (!user) {
-      console.log("1A");
+      //console.log("1A");
       return res.status(401).redirect("/login.html?error=Incorrect+Username");
     }
     const match = await checkPassword(password, user.password);
     if (match) {
+<<<<<<< HEAD
       console.log("step 2");
+=======
+      //console.log("step 2");
+      // if (req.session) {
+      // req.session.user = {
+      //   id: user.id
+      // };
+      // }
+>>>>>>> d16f341d2a50abd364ef11c1bc4342c0b2a3af19
       if (req.session) {
         req.session.username = "abcde";
       }
       return res.redirect("/");
     } else {
-      console.log("2A");
+      //console.log("2A");
       return res.status(401).redirect("/login.html?error=Incorrect+Username");
     }
   };
@@ -66,7 +75,7 @@ export class UserRouter {
     if (req.session) {
       delete req.session.username;
     }
-    console.log("3A");
+    //console.log("3A");
     res.redirect("/");
   };
 
@@ -81,7 +90,7 @@ export class UserRouter {
   }
 
   loginGoogle = async (req: express.Request, res: express.Response) => {
-    console.log("in google?")
+    //console.log("in google?")
     const accessToken = req.session?.grant.response.access_token;
     const fetchRes = await fetch(
       "https://www.googleapis.com/oauth2/v2/userinfo",
@@ -109,10 +118,15 @@ export class UserRouter {
     // }
     console.log(result) // full profile
     if (!user) {
+<<<<<<< HEAD
       console.log("first time")
       tmpUserId = await this.userService.createUser(result.email, "password", result.picture);
+=======
+      //console.log("first time")
+      tmpUserId = await this.userService.createUser(result.email, "password");
+>>>>>>> d16f341d2a50abd364ef11c1bc4342c0b2a3af19
     } else {
-      console.log("second time")
+      //console.log("second time")
       tmpUserId = user.id;
     }
     if (req.session) {

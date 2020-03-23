@@ -1,9 +1,14 @@
-let currentPath = "localhost:8080/api/v1/comment/hi/bye"
+// let currentPath = "localhost:8080/api/v1/comment/hi/bye"
+currentPath = window.location.href
+console.log(currentPath)
 currentPath = currentPath.split('.')[0];
 currentPath = currentPath.split('/');
-currentPath = currentPath.splice(currentPath.indexOf('comment') + 1);
-const category = currentPath[0];
-const dish = currentPath[1];
+// currentPath = currentPath.splice(currentPath.indexOf('comment') + 1);
+currentPath = currentPath.splice(-2);
+
+console.log(currentPath);
+const category = decodeURIComponent(currentPath[0])
+const dish = decodeURIComponent(currentPath[1])
 console.log(category, dish);
 let username = '';
 let firstTime = true;
@@ -112,6 +117,9 @@ async function readComment(id = null) {
             `<div class = "comment-section" data-username='${comment.username}'>
                     <div class="comment">${comment.comment}</div>
                     <div class="comment-footer">`
+        if (comment.edited==true){
+            commentHTML +=   `<div class="edited d-inline-block">(edited)</div>`
+        }
         if (comment.replies.length == 1) {
             commentHTML += `<button class="btn show-btn d-inline-block" data-id=${comment.id}>顯示回應
                                 <i class="fas fa-caret-down"></i>
@@ -150,12 +158,19 @@ async function readComment(id = null) {
                 <div class = "replies-section hide" data-username='${comment.username}' data-use="hiding" data-display='false' data-id=${comment.id} data-open="false">`
             for (let k = 0; k < allReferring.length; k++) {
                 let totalIndentation = allReferring.length * 10 - k * 10;
+                let edited = ''
+                if (allReferring[k].edited==true){
+                    edited = '(edited) '; 
+                }
                 commentHTML +=
-                    `<div class="referring-comment" style="padding-left:${totalIndentation}px">${allReferring[k].comment}</div>`
+                    `<div class="referring-comment" style="padding-left:${totalIndentation}px">${edited}${allReferring[k].comment}</div>`
             }
             commentHTML +=
                 `<div class="comment">${tempComment.comment}</div>
                         <div class="comment-footer">`
+            if (tempComment.edited==true){
+                commentHTML +=   `<div class="edited d-inline-block">(edited)</div>`
+            }
             if (tempComment.userIcon != null) {
                 commentHTML += `<img src="${tempComment.userIcon}"</img>`
             }

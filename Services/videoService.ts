@@ -1,10 +1,10 @@
 import path from 'path'
 import jsonfile from 'jsonfile'
-
-export class VideoService {
-    protected videosJsonPath: string
-
-    public constructor() {
+// import fs from 'fs'
+export class VideoService{
+    protected videosJsonPath:string
+    
+    public constructor(){
         this.videosJsonPath = path.join(__dirname, "../videos.json")
     }
 
@@ -15,14 +15,21 @@ export class VideoService {
 
     public async postVideo(category: string, dish: string, file: Express.Multer.File) {
         const videos = await this.getVideos()
-        videos.push({
-            Category: category,
-            Dish: dish,
-            Video: file == null ? null : file.filename // "Video" is Video.json file (key Name)
-        })
-        await jsonfile.writeFile(this.videosJsonPath, videos)
+            videos.push({
+              Category: category,
+              Dish: dish,
+              Video: file == null ? null : file.filename // "Video" is Video.json file (key Name)
+            })
+            //console.log(33)
 
-        return videos
+            // await fs.appendFile(`./Private/htmls/${category}_${dish}.html`,'hi',function(err){
+            //     if (err) throw err;
+            //     //console.log('file is created')
+            // })
+            //console.log(33)
+            await jsonfile.writeFile(this.videosJsonPath, videos)
+            
+            return videos
     }
 
     public async removeVideo(id: number) {

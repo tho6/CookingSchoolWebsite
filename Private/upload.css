@@ -15,3 +15,15 @@ $custom-file-text: (
 );
 
 @import "bootstrap"; */
+.undo{
+  background-color: grey;
+  color: white;
+  font-size: 20px;
+  padding: 4px;
+  border-radius: 10%;
+}
+.btn_container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
