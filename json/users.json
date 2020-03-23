@@ -1,1 +1,11 @@
-{"next_id":3,"users":[{"id":1,"username":"ivan.cheungckn@gmail.com","password":"$2a$10$JNRsz14b9wTH6K1dbbnStOwU6xYhrJ16QpGr3PVZYB3mPQKgx7SYK","picture":"https://lh6.googleusercontent.com/-UXrItGpeao4/AAAAAAAAAAI/AAAAAAAAAAA/AKF05nDDeizYcZ2m-8gI1gjEN3o-AsQumw/photo.jpg"},{"id":2,"username":"ivancheung4848@gmail.com","password":"$2a$10$LxhvBMfP.sFNmNXycdDIAe2dCIE7hltORR9C.1EI5x0Ux7Py4M.re","picture":"https://lh5.googleusercontent.com/-fhFRfII9U7E/AAAAAAAAAAI/AAAAAAAAFcA/AKF05nDrg9EE9GBsbf3TUvA_usG6Ust-Vg/photo.jpg"}]}
+{
+    "next_id": 2,
+    "users": [
+        {
+            "id": 1,
+            "username": "chingching6@gmail.com",
+            "password": "$2a$10$c4iSH5CX0.r5xRoonGsogO6NXbpP1BmvQRv1JQTcRPaybcnnkYLU2",
+            "picture": "https://lh3.googleusercontent.com/a-/AOh14GjlPiDGPYTjYq-tesPi5OaOL05x_MpudrAM7M6RVA"
+        }
+    ]
+}
