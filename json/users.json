@@ -1,11 +1,1 @@
-{
-    "next_id": 2,
-    "users": [
-        {
-            "id": 1,
-            "username": "chingching6@gmail.com",
-            "password": "$2a$10$c4iSH5CX0.r5xRoonGsogO6NXbpP1BmvQRv1JQTcRPaybcnnkYLU2",
-            "picture": "https://lh3.googleusercontent.com/a-/AOh14GjlPiDGPYTjYq-tesPi5OaOL05x_MpudrAM7M6RVA"
-        }
-    ]
-}
+{"next_id":3,"users":[{"id":1,"username":"chingching6@gmail.com","password":"$2a$10$c4iSH5CX0.r5xRoonGsogO6NXbpP1BmvQRv1JQTcRPaybcnnkYLU2","picture":"https://lh3.googleusercontent.com/a-/AOh14GjlPiDGPYTjYq-tesPi5OaOL05x_MpudrAM7M6RVA"},{"id":2,"username":"ivan.cheungckn@gmail.com","password":"$2a$10$gA4HzyiaQy7CRm/uMSJl.OUIhQst3P1VUUwtgGRY7nrqySAmkYNk6","picture":"https://lh6.googleusercontent.com/-UXrItGpeao4/AAAAAAAAAAI/AAAAAAAAAAA/AKF05nDDeizYcZ2m-8gI1gjEN3o-AsQumw/photo.jpg"}]}

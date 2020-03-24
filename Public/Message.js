@@ -15,6 +15,7 @@ let firstTime = true;
 
 let loggedIn = false;
 
+document.querySelector('title').innerHTML = `${dish}😋`
 async function getCurrentUser() {
     const resFetch = await fetch('/users/getCurrentUser')
     const jsonRes = await resFetch.json();
