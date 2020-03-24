@@ -31,7 +31,7 @@ async function getCurrentUser() {
     if (jsonRes.username) {
         username = jsonRes.username.split('@')[0]
         loggedIn = true
-        if (jsonRes.isAdmin == true){
+        if (jsonRes.isAdmin == true) {
             isAdmin = true;
         }
         console.log(firstTime)
@@ -47,13 +47,13 @@ async function getCurrentUser() {
 // const jsonRes = getCurrentUser();
 
 // console.log(jsonRes)
-$(function(){
-    $('.dropdown-menu').hover(function() {
+$(function () {
+    $('.dropdown-menu').hover(function () {
         $(this).addClass('show');
     },
-    function() {
-        $(this).removeClass('show');
-    });
+        function () {
+            $(this).removeClass('show');
+        });
 });
 
 function afterLogIn() {
@@ -63,13 +63,13 @@ function afterLogIn() {
         loginbtn.setAttribute('href', '');
         loginbtn.addEventListener('click', async function () { await fetch('/users/logout') }, { once: true });
         loginbtn.innerHTML = '登出';
-        if (isAdmin){
+        if (isAdmin) {
             const upload = `<li class="nav-item">
             <a href="/upload.html" id="upload" class="nav-link btn btn-outline-light btn-lg">上傳</a>
                 </li>`
             loginbtn.parentNode.insertAdjacentHTML('beforebegin', upload)
         }
-        
+
     }
 }
 
@@ -140,8 +140,8 @@ async function readComment(id = null) {
             `<div class = "comment-section" data-username='${comment.username}'>
                     <div class="comment">${comment.comment}</div>
                     <div class="comment-footer">`
-        if (comment.edited==true){
-            commentHTML +=   `<div class="edited d-inline-block">(edited)</div>`
+        if (comment.edited == true) {
+            commentHTML += `<div class="edited d-inline-block">(edited)</div>`
         }
         if (comment.replies.length == 1) {
             commentHTML += `<button class="btn show-btn d-inline-block" data-id=${comment.id}>顯示回應
@@ -182,8 +182,8 @@ async function readComment(id = null) {
             for (let k = 0; k < allReferring.length; k++) {
                 let totalIndentation = allReferring.length * 10 - k * 10;
                 let edited = ''
-                if (allReferring[k].edited==true){
-                    edited = '(edited) '; 
+                if (allReferring[k].edited == true) {
+                    edited = '(edited) ';
                 }
                 commentHTML +=
                     `<div class="referring-comment" style="padding-left:${totalIndentation}px">${edited}${allReferring[k].comment}</div>`
@@ -191,8 +191,8 @@ async function readComment(id = null) {
             commentHTML +=
                 `<div class="comment">${tempComment.comment}</div>
                         <div class="comment-footer">`
-            if (tempComment.edited==true){
-                commentHTML +=   `<div class="edited d-inline-block">(edited)</div>`
+            if (tempComment.edited == true) {
+                commentHTML += `<div class="edited d-inline-block">(edited)</div>`
             }
             if (tempComment.userIcon != null) {
                 commentHTML += `<img src="${tempComment.userIcon}"</img>`
@@ -462,25 +462,54 @@ function showMore() {
 }
 
 function showBtns() {
-    const sections = document.querySelectorAll(`.replies-section[data-username='${username}'],.comment-section[data-username='${username}']`)
+    // const editsSection = document.querySelectorAll(`.replies-section,.comment-section`)
+    // for (const editSection of editsSection){
+    //     const editSection = event.currentTarget;
+
+    // }
+    const sections = document.querySelectorAll(`.replies-section,.comment-section`)
     for (const section of sections) {
         section.addEventListener('mouseover', (event) => {
             const area = event.currentTarget;
-            const btns = area.querySelectorAll('.reply-btn, .edit-btn, .trash-btn');
+            // [data-username='${username}']
+            console.log(area.dataset)
+            let btns = area.querySelectorAll('.reply-btn');
+            let editbtns = area.querySelectorAll('.edit-btn, .trash-btn');
             for (const btn of btns) {
                 btn.classList.add('d-inline-block')
             }
-        }
-        )
+            for (const edit of editbtns) {
+                if (edit.dataset.username == username) {
+
+                    edit.classList.add('d-inline-block')
+
+                }
+
+            }
+
+        })
+
+
         section.addEventListener('mouseout', (event) => {
             const area = event.currentTarget;
-            const btns = area.querySelectorAll('.reply-btn, .edit-btn, .trash-btn');
+            let btns = area.querySelectorAll('.reply-btn,.edit-btn, .trash-btn');
+            // let editbtns = area.querySelectorAll('.edit-btn, .trash-btn');
             for (const btn of btns) {
                 btn.classList.remove('d-inline-block')
             }
+            // for (const edit of editbtns) {
+            //     if (edit.dataset.username == username) {
+
+            //         edit.classList.remove('d-inline-block')
+
+            //     }
+
+            // }
         })
     }
 }
+
+
 
 function showExisting(id) {
     console.log(id)
@@ -493,7 +522,7 @@ function showExisting(id) {
 
 async function main(id) {
     await getCurrentUser();
-    if (firstTime){
+    if (firstTime) {
         afterLogIn();
     }
     await readComment();

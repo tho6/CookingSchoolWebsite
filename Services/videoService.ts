@@ -136,10 +136,16 @@ export class VideoService {
     return videos
   }
 
-  public async removeVideo(id: number) {
+  public async removeVideo(id: number, category:string, dish:string) {
     const videos = await jsonfile.readFile(this.videosJsonPath)
     videos.splice(id, 1)
     await jsonfile.writeFile(this.videosJsonPath, videos)
+    fs.unlink(`./Private/${category}_${dish}.html`, (err) => {
+      if (err) {
+        console.error(err)
+        return
+      }})
+      return
     return videos
   }
 

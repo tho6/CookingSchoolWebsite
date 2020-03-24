@@ -50,7 +50,7 @@ export class VideoRouter{
           res.status(400).json({success:false})
           return
         }
-        await this.videoService.removeVideo(idNum)
+        await this.videoService.removeVideo(idNum, req.body.category, req.body.dish)
         res.json({ success: true })
         
       } catch (e) {

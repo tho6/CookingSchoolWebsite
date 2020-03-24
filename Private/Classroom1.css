@@ -8,9 +8,6 @@ body {
 }
 /* -- Navigation -- */
 
-.title{
-    color: white;
-}
 
 .navbar-brand img{
     /* width: 10%; */
@@ -99,8 +96,22 @@ video{
     height:100%
 }
 
+.video-title{
+    margin-left: 30px;
+    margin-top: 15px;
+}
+
+.horizontal-line {
+    margin-left: 30px;
+    size: 3px;
+}
+
 #video-row {
     margin-bottom: 40px;
+}
+
+.active.listItem.flex-md-row.list-group-item.list-group-item-action{
+    background-color: wheat;
 }
 
 #videoList{
