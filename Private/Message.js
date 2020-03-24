@@ -1,20 +1,28 @@
 // let currentPath = "localhost:8080/api/v1/comment/hi/bye"
-currentPath = window.location.href
-console.log(currentPath)
-currentPath = currentPath.split('.')[0];
-currentPath = currentPath.split('/');
-// currentPath = currentPath.splice(currentPath.indexOf('comment') + 1);
-currentPath = currentPath.splice(-2);
+// currentPath = window.location.href
+// console.log(currentPath)
+// currentPath = currentPath.split('.')[0];
+// currentPath = currentPath.split('/');
+// // currentPath = currentPath.splice(currentPath.indexOf('comment') + 1);
+// currentPath = currentPath.splice(-2);
 
-console.log(currentPath);
-const category = decodeURIComponent(currentPath[0])
-const dish = decodeURIComponent(currentPath[1])
+// console.log(currentPath);
+// const category = decodeURIComponent(currentPath[0])
+// const dish = decodeURIComponent(currentPath[1])
+let currentPath = decodeURIComponent(window.location.href)
+// alert(currentPath)
+currentPath = currentPath.split('.')[0];
+currentPath = currentPath.split('/')[3];
+const category = currentPath.split('_')[0]
+const dish = currentPath.split('_')[1]
 console.log(category, dish);
+
 let username = '';
 let firstTime = true;
-
+var isAdmin = false;
 let loggedIn = false;
 
+document.querySelector('title').innerHTML = `${dish}😋`
 async function getCurrentUser() {
     const resFetch = await fetch('/users/getCurrentUser')
     const jsonRes = await resFetch.json();
@@ -23,6 +31,9 @@ async function getCurrentUser() {
     if (jsonRes.username) {
         username = jsonRes.username.split('@')[0]
         loggedIn = true
+        if (jsonRes.isAdmin == true){
+            isAdmin = true;
+        }
         console.log(firstTime)
         console.log(loggedIn)
     } else {
@@ -31,6 +42,7 @@ async function getCurrentUser() {
     }
 
 }
+
 
 // const jsonRes = getCurrentUser();
 
@@ -51,10 +63,13 @@ function afterLogIn() {
         loginbtn.setAttribute('href', '');
         loginbtn.addEventListener('click', async function () { await fetch('/users/logout') }, { once: true });
         loginbtn.innerHTML = '登出';
-        const upload = `<li class="nav-item">
-                            <a href="/upload.html" id="upload" class="nav-link btn btn-outline-light btn-lg">上傳</a>
-                        </li>`
-        loginbtn.parentNode.insertAdjacentHTML('beforebegin', upload)
+        if (isAdmin){
+            const upload = `<li class="nav-item">
+            <a href="/upload.html" id="upload" class="nav-link btn btn-outline-light btn-lg">上傳</a>
+                </li>`
+            loginbtn.parentNode.insertAdjacentHTML('beforebegin', upload)
+        }
+        
     }
 }
 

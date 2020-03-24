@@ -1,4 +1,5 @@
 let loggedIn = false;
+let isAdmin = false;
 
 async function getCurrentUser() {
     const resFetch = await fetch('/users/getCurrentUser')
@@ -8,6 +9,9 @@ async function getCurrentUser() {
     if (jsonRes.username) {
         loggedIn = true
         console.log(loggedIn)
+        if (jsonRes.isAdmin == true){
+            isAdmin = true;
+        }
     } else {
         loggedIn = false
         console.log(loggedIn)
@@ -49,10 +53,13 @@ function afterLogIn(){
         loginbtn.setAttribute('href','');
         loginbtn.addEventListener('click', async function() { await fetch('/users/logout') }, {once: true});
         loginbtn.innerHTML = '登出';
-        const upload = `<li class="nav-item">
-                            <a href="upload.html" id="upload" class="nav-link btn btn-outline-light btn-lg">上傳</a>
-                        </li>`
+        if (isAdmin){
+            const upload = `<li class="nav-item">
+            <a href="upload.html" id="upload" class="nav-link btn btn-outline-light btn-lg">上傳</a>
+        </li>`
         loginbtn.parentNode.insertAdjacentHTML('beforebegin', upload)
+        }
+        
         console.log('work')
     }
 }

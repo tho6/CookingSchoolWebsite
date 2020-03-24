@@ -121,7 +121,7 @@ export class UserRouter {
       // tmpUserId = user;
     }
     if (req.session) {
-      if (user?.username === 'chingching6@gmail.com') {
+      if (user?.username === 'chingching6@gmail.com' || user?.username == 'ivan.cheungckn@gmail.com' || user?.username == 'logbechan@gmail.com') {
         req.session.username = { 'username': user?.username, 'picture': user.picture, 'isAdmin': true };
         // res.json({ role: 'admin' })
         console.log('admin');

@@ -8,11 +8,18 @@ body {
 }
 /* -- Navigation -- */
 
+.title{
+    color: white;
+}
+
 .navbar-brand img{
     /* width: 10%; */
     height: 3rem;
 }
 
+.category-title {
+    color: wheat;
+}
 .navbar {
     text-transform: uppercase;
     font-weight: 700;

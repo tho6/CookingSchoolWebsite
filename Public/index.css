@@ -8,6 +8,11 @@ body {
 }
 /* -- Navigation -- */
 
+.title{
+    color: white;
+}
+
+
 .navbar-brand img{
     /* width: 10%; */
     height: 3rem;
