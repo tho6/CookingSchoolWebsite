@@ -1,4 +1,1 @@
-{
-                "nextid": 0,
-                "comments": []
-            }
+{"nextid":3,"comments":[{"id":1,"username":"ivan.cheungckn","userIcon":"https://lh6.googleusercontent.com/-UXrItGpeao4/AAAAAAAAAAI/AAAAAAAAAAA/AKF05nDDeizYcZ2m-8gI1gjEN3o-AsQumw/photo.jpg","comment":"🤤🤤🤤🤤🤤🤤","replies":[],"referring":[],"editTime":"3/24/2020, 12:17:59"},{"id":0,"username":"ivan.cheungckn","userIcon":"https://lh6.googleusercontent.com/-UXrItGpeao4/AAAAAAAAAAI/AAAAAAAAAAA/AKF05nDDeizYcZ2m-8gI1gjEN3o-AsQumw/photo.jpg","comment":"🙇🏻🙇🏻📣📣","replies":[{"id":2,"username":"ivan.cheungckn","userIcon":"https://lh6.googleusercontent.com/-UXrItGpeao4/AAAAAAAAAAI/AAAAAAAAAAA/AKF05nDDeizYcZ2m-8gI1gjEN3o-AsQumw/photo.jpg","comment":"123","replies":[],"referring":[0],"editTime":"3/24/2020, 12:18:39"}],"referring":[],"editTime":"3/24/2020, 12:18:35","edited":true}]}

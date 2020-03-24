@@ -47,6 +47,9 @@ export class VideoService {
     <div>
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a href="/" class="navbar-brand"><img src="homeImg/brand2.png" alt=""></a>
+        <div class="category-title">
+          <h5>${category}</h5>
+        </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -56,9 +59,20 @@ export class VideoService {
             <li class="nav-item">
               <a href="/" class="nav-link">首頁</a>
             </li>
-            <li class="nav-item">
-              <a href="/#categories" class="nav-link">菜式</a>
-            </li>
+            <li class="nav-item dropdown">
+                            <a href="#" data-toggle="dropdown" id="navbarDropdownMenuLink" class="nav-link dropdown-toggle">菜式</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="中式_瑤柱蛋白炒飯.html">中式</a>
+                                <a class="dropdown-item" href="意大利菜_五彩蔬菜千層麵.html">意大利菜</a>
+                                <a class="dropdown-item" href="法國菜_白酒忌廉煮青口.html">法國菜</a>
+                                <a class="dropdown-item" href="印度菜_印度咖哩雞.html">印度菜</a>
+                                <a class="dropdown-item" href="泰國菜_泰式冬蔭功海鮮湯.html">泰國菜</a>
+                                <a class="dropdown-item" href="越南菜_扎肉鷄絲凍檬.html">越南菜</a>
+                                <a class="dropdown-item" href="日本菜_日式炒烏冬.html">日本菜</a>
+                                <a class="dropdown-item" href="韓國料理_韓式香辣炸雞腿.html">韓國料理</a>
+                
+                            </div>
+                        </li>
   
             <li class="nav-item">
               <a href="/#contact" class="nav-link">聯絡我們</a>
@@ -109,7 +123,7 @@ export class VideoService {
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"></script>
     <script src="/Video.js"></script>
-    <script src="/message.js" charset="UTF-8"></script>
+    <script src="/Message.js" charset="UTF-8"></script>
   </body>
   
   </html>`, function (err) {

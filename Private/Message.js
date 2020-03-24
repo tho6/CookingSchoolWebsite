@@ -1,15 +1,22 @@
 // let currentPath = "localhost:8080/api/v1/comment/hi/bye"
-currentPath = window.location.href
-console.log(currentPath)
-currentPath = currentPath.split('.')[0];
-currentPath = currentPath.split('/');
-// currentPath = currentPath.splice(currentPath.indexOf('comment') + 1);
-currentPath = currentPath.splice(-2);
+// currentPath = window.location.href
+// console.log(currentPath)
+// currentPath = currentPath.split('.')[0];
+// currentPath = currentPath.split('/');
+// // currentPath = currentPath.splice(currentPath.indexOf('comment') + 1);
+// currentPath = currentPath.splice(-2);
 
-console.log(currentPath);
-const category = decodeURIComponent(currentPath[0])
-const dish = decodeURIComponent(currentPath[1])
+// console.log(currentPath);
+// const category = decodeURIComponent(currentPath[0])
+// const dish = decodeURIComponent(currentPath[1])
+let currentPath = decodeURIComponent(window.location.href)
+// alert(currentPath)
+currentPath = currentPath.split('.')[0];
+currentPath = currentPath.split('/')[3];
+const category = currentPath.split('_')[0]
+const dish = currentPath.split('_')[1]
 console.log(category, dish);
+
 let username = '';
 let firstTime = true;
 
