@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
     cb(null, path.join(__dirname, 'uploads'));
   },
   filename: function (req, file, cb) {
-    cb(null, `${req.body.category}_${req.body.dish}_${Date.now()}.${file.mimetype.split('/')[1]}`); // category and dish refer to html form name tag
+    cb(null, `${req.body.category}_${req.body.dish}.${file.mimetype.split('/')[1]}`); // category and dish refer to html form name tag
   }
 })
 

@@ -8,11 +8,12 @@ export class VideoRouter{
     constructor(private videoService:VideoService,private upload:any){
 
     }
-
+    
+  
     router(){
-        const router = express.Router()
+      const router = express.Router();
         router.get('/videos',this.getVideos)
-        router.post('/videos', this.upload.single('video'),this.postVideo)
+        router.post("/:category/:dish", this.upload.single('video'),this.postVideo)
         router.delete('/videos/:id',this.removeVideo)
         return router
     }
