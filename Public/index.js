@@ -18,6 +18,14 @@ async function getCurrentUser() {
 //     // removeVideo();
 //   }
 }
+$(function(){
+    $('.dropdown-menu').hover(function() {
+        $(this).addClass('show');
+    },
+    function() {
+        $(this).removeClass('show');
+    });
+});
 
 // // below try admin
 // let isAdmin = false;
@@ -45,7 +53,7 @@ function afterLogIn(){
                             <a href="upload.html" id="upload" class="nav-link btn btn-outline-light btn-lg">上傳</a>
                         </li>`
         loginbtn.parentNode.insertAdjacentHTML('beforebegin', upload)
-        console.log('wprk')
+        console.log('work')
     }
 }
 

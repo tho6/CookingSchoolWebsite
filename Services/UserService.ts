@@ -26,39 +26,17 @@ export class UserService {
     return user;
   }
 
-  async createUser(username: string, password: string) {
+  async createUser(username: string, password: string, picture: string) { // edited this
     const dataset = await this.getUserDataset();
     const hashedPassword = await hashPassword(password);
     const user = {
       id: dataset.next_id++,
       username,
-      password: hashedPassword
+      password: hashedPassword,
+      picture: picture // edited this
     }
     dataset.users.push(user);
     await jsonfile.writeFile(this.userJsonPath, dataset);
-    return user.id;
+    return user;
   }
-  // const dataset = await this.getUserDataset();
-  // const user = {
-  //   id: dataset.next_id++,
-  //   username,
-  //   password: hashedPassword
-  // };
-  // dataset.users.push(user);
-  // await jsonfile.writeFile(this.userJsonPath, dataset);
-  // return user.id;
 }
-
-  // constructor() {
-  //   this.userJsonPath = path.join(__dirname, "../json/users.json");
-  // // }
-
-  // async getUserDataset() {
-  // 	const data = await jsonfile.readFile(this.userJsonPath);
-  // 	return data as UserDataset;
-  // }
-
-  // async getUsers() {
-  //   const { users } = await this.getUserDataset();
-  //   return users
-  // }

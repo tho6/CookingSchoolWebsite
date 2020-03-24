@@ -27,14 +27,13 @@ export class UserRouter {
 
   createUser = async (req: Request, res: Response) => {
     try {
-      const { username, password } = req.body;
+      const { username, password, picture } = req.body;
       const user = await this.userService.getUserByUsername(username);
       if (user) {
         res.status(400).json({ message: "Duplicate" });
         return;
       }
-
-      const userId = await this.userService.createUser(username, password);
+      const userId = await this.userService.createUser(username, password, picture);
       res.json({ user_id: userId });
     } catch (err) {
       res.status(500).json({ message: "Internal server error" });
@@ -100,9 +99,9 @@ export class UserRouter {
     );
     const result = await fetchRes.json();
     const users = await this.userService.getUsers();
-    const user = users.find(user => user.username == result.email);
+    let user = users.find(user => user.username == result.email);
     // @ts-ignore
-    let tmpUserId: number
+    // let tmpUserId: number
     // if (!user) {
     //   return res.status(401).redirect("/login.html?error=Incorrect+Username");
     // }
@@ -115,31 +114,23 @@ export class UserRouter {
     // }
     console.log(result) // full profile
     if (!user) {
-      //console.log("first time")
-      tmpUserId = await this.userService.createUser(result.email, "password");
+      console.log("first time")
+      user = await this.userService.createUser(result.email, "password", result.picture);
     } else {
       //console.log("second time")
-      tmpUserId = user.id;
+      // tmpUserId = user;
     }
     if (req.session) {
-      // req.session.user = {
-      //   id: tmpUserId
-      // };
-
-      //below try admin
-
       if (user?.username === 'chingching6@gmail.com') {
-        req.session.username = { 'username': user?.username, 'isAdmin': true };
+        req.session.username = { 'username': user?.username, 'picture': user.picture, 'isAdmin': true };
         // res.json({ role: 'admin' })
         console.log('admin');
       } else {
-        req.session.username = { 'username': user?.username, 'isAdmin': false };
+        req.session.username = { 'username': user?.username, 'picture': user.picture, 'isAdmin': false };
         // res.json({ role: 'guest' })
         console.log('guest');
       }
     };
-
-    // below try admin
 
     console.log(req.session?.username) // get session user id
 
@@ -147,14 +138,4 @@ export class UserRouter {
 
     return res.redirect("/");
   }
-
-
-  // if (req.session) {
-  //   console.log(req.session?.grant) // tried to get google profile
-  // };
-
-  //
-
-  //
-
 }

@@ -35,6 +35,14 @@ async function getCurrentUser() {
 // const jsonRes = getCurrentUser();
 
 // console.log(jsonRes)
+$(function(){
+    $('.dropdown-menu').hover(function() {
+        $(this).addClass('show');
+    },
+    function() {
+        $(this).removeClass('show');
+    });
+});
 
 function afterLogIn() {
     if (loggedIn) {
