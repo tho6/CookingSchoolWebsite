@@ -19,7 +19,7 @@ console.log(category, dish);
 
 let username = '';
 let firstTime = true;
-
+var isAdmin = false;
 let loggedIn = false;
 
 document.querySelector('title').innerHTML = `${dish}😋`
@@ -31,6 +31,9 @@ async function getCurrentUser() {
     if (jsonRes.username) {
         username = jsonRes.username.split('@')[0]
         loggedIn = true
+        if (jsonRes.isAdmin == true){
+            isAdmin = true;
+        }
         console.log(firstTime)
         console.log(loggedIn)
     } else {
@@ -39,6 +42,7 @@ async function getCurrentUser() {
     }
 
 }
+
 
 // const jsonRes = getCurrentUser();
 
@@ -59,10 +63,13 @@ function afterLogIn() {
         loginbtn.setAttribute('href', '');
         loginbtn.addEventListener('click', async function () { await fetch('/users/logout') }, { once: true });
         loginbtn.innerHTML = '登出';
-        const upload = `<li class="nav-item">
-                            <a href="/upload.html" id="upload" class="nav-link btn btn-outline-light btn-lg">上傳</a>
-                        </li>`
-        loginbtn.parentNode.insertAdjacentHTML('beforebegin', upload)
+        if (isAdmin){
+            const upload = `<li class="nav-item">
+            <a href="/upload.html" id="upload" class="nav-link btn btn-outline-light btn-lg">上傳</a>
+                </li>`
+            loginbtn.parentNode.insertAdjacentHTML('beforebegin', upload)
+        }
+        
     }
 }
 

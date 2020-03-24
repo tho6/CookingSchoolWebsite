@@ -8,7 +8,7 @@ const dishURL = currentPath.split('_')[1]
 // alert(dishURL);
 
 let videoHTML = []
-
+console.log(window.isAdmin)
 readVideos(1);
 
 async function readVideos(con) {
@@ -24,14 +24,22 @@ async function readVideos(con) {
     //  alert(videos[0].Category)
     if (videos[i].Category == categoryURL) {
       
-      videoHTML = `<li class="listItem">`;
+      // videoHTML = `<li class="listItem">`;
       // videoHTML = videoHTML + videos[i].Dish + `<button class="trash" data-id="${i}"><i class="fas fa-trash"></i></button></li>`;
-      videoHTML = videoHTML + `<a href="${videos[i].Category}_${videos[i].Dish}.html">${videos[i].Dish}</a><button class="trash" data-id="${i}"><i class="fas fa-trash"></i></button></li>`;
+      // videoHTML = videoHTML + `<a href="${videos[i].Category}_${videos[i].Dish}.html">${videos[i].Dish}</a><button class="trash" data-id="${i}"><i class="fas fa-trash"></i></button></li>`;
       if (videos[i].Video != null) {
       videoHTML = `<li id="${videos[i].Video}" class="listItem flex-md-row list-group-item list-group-item-action">`
       // videoHTML = videoHTML + videos[i].Dish + `<button class="trash" data-id="${i}"><i class="fas fa-trash"></i></button></li>`;
-      videoHTML = videoHTML + `<a href="${videos[i].Category}_${videos[i].Dish}.html">${videos[i].Dish}</a><button class="trash" data-id="${i}"><i class="fas fa-trash"></i></button></li>`;
+      videoHTML = videoHTML + `<a href="${videos[i].Category}_${videos[i].Dish}.html">${videos[i].Dish}</a>`
+      if (isAdmin){
+        videoHTML+= `<button class="trash" data-id="${i}"><i class="fas fa-trash"></i></button>`
       }
+      videoHTML +=`</li>`;
+      }
+
+      // videoHTML = `<li id="${videos[i].Video}" class="listItem flex-md-row list-group-item list-group-item-action">`
+      // // videoHTML = videoHTML + videos[i].Dish + `<button class="trash" data-id="${i}"><i class="fas fa-trash"></i></button></li>`;
+      // videoHTML = videoHTML + `<a href="${videos[i].Category}_${videos[i].Dish}.html">${videos[i].Dish}</a><button class="trash" data-id="${i}"><i class="fas fa-trash"></i></button></li>`;
       document.querySelector('#videoList').innerHTML += videoHTML; // add something into innerHTML      
   
       // document.querySelector('#videoPlayer').src = `./${categoryURL}_${dishURL}.mp4`
