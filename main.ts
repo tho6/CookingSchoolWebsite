@@ -68,7 +68,7 @@ const videoRouter = new VideoRouter(videoService, upload)
 
 
 app.use("/users", userRouter.router());
-app.use(isLoggedInHtml, express.static(path.join(__dirname, './private')));
+app.use(isLoggedInHtml, express.static(path.join(__dirname, './Private')));
 app.use(`${API_VERSION}/comment`, commentRouter.router());
 app.use(/* 放加強器 */ express.static(path.join(__dirname, 'uploads')))
 app.use(videoRouter.router())
