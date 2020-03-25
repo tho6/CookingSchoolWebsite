@@ -36,6 +36,7 @@ export class UserRouter {
       const userId = await this.userService.createUser(username, password, picture);
       res.json({ user_id: userId });
     } catch (err) {
+      // 
       res.status(500).json({ message: "Internal server error" });
     }
   }
