@@ -28,7 +28,7 @@ export class VideoService {
       console.log('file is created')
     })
 
-    await fs.writeFile(`./Private/${category}_${dish}.html`, `<!DOCTYPE html>
+    await fs.writeFile(`./uploads/${category}_${dish}.html`, `<!DOCTYPE html>
     <html lang="en">
     
     <head>
@@ -140,12 +140,13 @@ export class VideoService {
     const videos = await jsonfile.readFile(this.videosJsonPath)
     videos.splice(id, 1)
     await jsonfile.writeFile(this.videosJsonPath, videos)
-    fs.unlink(`./Private/${category}_${dish}.html`, (err) => {
-      if (err) {
-        console.error(err)
-        return
-      }})
-      return
+    // fs.unlink(`./Private/${category}_${dish}.html`, (err) => {
+      // if (err) {
+      //   console.error(err)
+      //   return
+      // }
+    // })
+      
     return videos
   }
 
