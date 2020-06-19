@@ -70,9 +70,9 @@ const videoRouter = new VideoRouter(videoService, upload)
 app.use("/users", userRouter.router());
 app.use(isLoggedInHtml, express.static(path.join(__dirname, './Private')));
 app.use(`${API_VERSION}/comment`, commentRouter.router());
-app.get('/(\S+)_(\S+)\.html', (req, res) => {
-  res.sendFile(__dirname + '/template.html')
-})
+// app.get('/(\S+)_(\S+)\.html', (req, res) => {
+//   res.sendFile(__dirname + '/template.html')
+// })
 app.use(/* 放加強器 */ express.static(path.join(__dirname, 'uploads')))
 app.use(videoRouter.router())
 
